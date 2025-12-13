@@ -39,18 +39,18 @@ def load_tracker():
 def extract_tasks(content, level_num=1):
     """Extract tasks from a specific level"""
     level_names = {
-        1: "Level 1: Novice",
-        2: "Level 2: Apprentice",
-        3: "Level 3: Journeyman",
-        4: "Level 4: Expert",
-        5: "Level 5: Master"
+        1: "Level 1: Novice - Detailed Tracking",
+        2: "Level 2: Apprentice - Detailed Tracking",
+        3: "Level 3: Journeyman - Detailed Tracking",
+        4: "Level 4: Expert - Detailed Tracking",
+        5: "Level 5: Master - Detailed Tracking"
     }
 
-    level_name = level_names.get(level_num, "Level 1: Novice")
+    level_name = level_names.get(level_num, "Level 1: Novice - Detailed Tracking")
 
-    # Find the level section
-    pattern = f"## {level_name}.*?(?=##|$)"
-    section_match = re.search(pattern, content, re.DOTALL)
+    # Find the level section (match until next ## that's not ###)
+    pattern = f"## {re.escape(level_name)}.*?(?=^## [^#]|\\Z)"
+    section_match = re.search(pattern, content, re.DOTALL | re.MULTILINE)
 
     if not section_match:
         return []
