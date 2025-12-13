@@ -111,37 +111,37 @@ Fill this out when you begin:
 
 ### Chapter Progress
 
-- [ ] Chapter 1: What is Claude Code? (+5 XP)
-- [ ] Chapter 2: Installation Verification (+5 XP)
-- [ ] Chapter 3: Your First Launch (+5 XP)
-- [ ] Chapter 4: Basic Conversation (+5 XP)
-- [ ] Chapter 5: Essential Commands (+5 XP)
-- [ ] Chapter 6: Resuming Sessions (+5 XP)
-- [ ] Chapter 7: Getting Help (+5 XP)
+- [x] Chapter 1: What is Claude Code? (+5 XP)
+- [x] Chapter 2: Installation Verification (+5 XP)
+- [x] Chapter 3: Your First Launch (+5 XP)
+- [x] Chapter 4: Basic Conversation (+5 XP)
+- [x] Chapter 5: Essential Commands (+5 XP)
+- [x] Chapter 6: Resuming Sessions (+5 XP)
+- [x] Chapter 7: Getting Help (+5 XP)
 
 **Chapter XP: ___ / 35**
 
 
 ### Exercises
 
-- [ ] Exercise 1.1: Installation Check (+10 XP)
-- [ ] Exercise 1.2: First Conversation (+10 XP)
-- [ ] Exercise 1.3: Command Practice (+10 XP)
-- [ ] Exercise 1.4: Resume a Conversation (+10 XP)
+- [x] Exercise 1.1: Installation Check (+10 XP)
+- [x] Exercise 1.2: First Conversation (+10 XP)
+- [x] Exercise 1.3: Command Practice (+10 XP)
+- [x] Exercise 1.4: Resume a Conversation (+10 XP)
 
 **Exercise XP: ___ / 40**
 
 
 ### Challenge
 
-- [ ] The Newcomer's Trial (+20 XP)
+- [x] The Newcomer's Trial (+20 XP)
 
 **Challenge XP: ___ / 20**
 
 
 ### Boss Battle
 
-- [ ] The Configuration Quest (+50 XP)
+- [x] The Configuration Quest (+50 XP)
 
 **Boss Battle XP: ___ / 50**
 
