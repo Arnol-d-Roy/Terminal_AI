@@ -9,6 +9,24 @@
 +--------------------------------------------------+
 ```
 
+## 🎮 How to Use Interactive Checkboxes
+
+### In VS Code or GitHub:
+1. **Click the checkbox** next to any item to mark it complete
+2. The checkbox will automatically toggle: `[ ]` → `[x]`
+3. Your markdown preview will show checked/unchecked boxes
+4. **Run the XP calculator script** (see below) to auto-calculate your total XP!
+
+### Auto-Calculate Your XP:
+Run this command in the terminal from the tutorial directory:
+```bash
+python3 xp-calculator.py
+```
+This will scan your checkboxes and display your current XP, level, and progress!
+
+### Manual Tracking:
+If you prefer, you can manually fill in the `Your XP` fields as you check boxes.
+
 ---
 
 ## Adventurer Profile

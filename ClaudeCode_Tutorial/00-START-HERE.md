@@ -46,6 +46,44 @@ This tutorial system is designed like a video game progression. You'll start as 
 
 Throughout your journey, you'll unlock achievement badges. Track them in your [Progress Tracker](./PROGRESS-TRACKER.md)!
 
+### 🎮 Interactive Progress Tracking
+
+**This tutorial features interactive checkboxes!** Here's how it works:
+
+#### In VS Code (Recommended):
+1. Open `PROGRESS-TRACKER.md` in VS Code
+2. Enable preview mode (Ctrl+Shift+V or Cmd+Shift+V)
+3. **Click any checkbox** to mark tasks complete - they toggle automatically!
+4. Your progress is saved to the file immediately
+
+#### Automatic XP Calculation:
+After checking boxes, run this command to see your stats:
+```bash
+python3 xp-calculator.py
+```
+
+The script shows:
+- Your current level and total XP
+- Visual progress bar
+- XP breakdown by level
+- Achievements, boss battles, and Easter eggs found
+- Motivational messages based on your progress
+
+**Example Output:**
+```
+🎮 CLAUDE CODE MASTERY QUEST - XP CALCULATOR
+============================================================
+Current Status:
+  Level: 2 - Apprentice
+  Total XP: 145 / 1125
+  Completion: 12.9%
+
+  Progress: [████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]
+```
+
+#### GitHub/Other Viewers:
+The checkboxes work in GitHub too! Just view the file and click to toggle.
+
 ---
 
 ## Quick Navigation
@@ -90,6 +128,7 @@ ClaudeCode_Tutorial/
 |-- 05-LEVEL-MASTER.md        <-- Level 5: Mastery & teaching
 |-- PROGRESS-TRACKER.md       <-- Track your XP and achievements
 |-- QUICK-REFERENCE.md        <-- Cheat sheet for quick lookup
+|-- xp-calculator.py          <-- Auto-calculate XP from checkboxes
 ```
 
 ---
