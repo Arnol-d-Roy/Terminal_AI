@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(gemini -p \"Find the best YouTube videos about AI-powered terminal tools and CLI assistants in 2024-2025. Include videos about Warp AI, GitHub Copilot CLI, AI shell assistants, and terminal automation. List video titles, channel names, view counts, and what makes each valuable.\")",
+      "Bash(gemini:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

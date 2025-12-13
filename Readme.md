@@ -1,8 +1,13 @@
-Start up Guide: 
+Start up Guide:
 
 
 
-Installation: 
+Reference Video:
+https://www.youtube.com/watch?v=MsQACpcuTkU\&t=147s
+
+
+
+Installation:
 
 WSL
 
@@ -19,4 +24,20 @@ claude - runs claude code on the terminal
 
 
 gemini - runs gemini on the terminal
+
+
+
+claude -r --> resumes a precious conversation
+
+
+
+claude -r --dangerously-skip-permissions
+
+
+
+gemini -p "<prompt>" --> run a gemini prompt without the cli
+
+
+
+
 
