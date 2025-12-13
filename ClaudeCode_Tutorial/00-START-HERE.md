@@ -48,28 +48,52 @@ Throughout your journey, you'll unlock achievement badges. Track them in your [P
 
 ### 🎮 Interactive Progress Tracking
 
-**This tutorial features interactive checkboxes!** Here's how it works:
+**This tutorial features multiple ways to track your progress!**
 
-#### In VS Code (Recommended):
-1. Open `PROGRESS-TRACKER.md` in VS Code
-2. Enable preview mode (Ctrl+Shift+V or Cmd+Shift+V)
-3. **Click any checkbox** to mark tasks complete - they toggle automatically!
-4. Your progress is saved to the file immediately
+#### Method 1: Interactive Terminal Tracker (Easiest!)
+```bash
+python3 interactive-tracker.py
+```
 
-#### Automatic XP Calculation:
-After checking boxes, run this command to see your stats:
+This gives you a **full interactive menu**:
+- Browse tasks by level
+- Type a number to toggle any task
+- Instantly updates PROGRESS-TRACKER.md
+- See your XP in real-time
+
+**Perfect for:** Everyone! Works everywhere, no extensions needed.
+
+#### Method 2: VS Code with Extension
+1. Install "Markdown All in One" extension
+2. Open `PROGRESS-TRACKER.md`
+3. Place cursor on a checkbox line
+4. Press `Alt+C` to toggle
+
+**Perfect for:** VS Code users who want in-editor tracking.
+
+See [INSTALL-EXTENSIONS.md](./INSTALL-EXTENSIONS.md) for details.
+
+#### Method 3: Manual Editing
+Just edit the markdown file directly:
+- Change `- [ ]` to `- [x]` (mark complete)
+- Change `- [x]` to `- [ ]` (mark incomplete)
+
+**Perfect for:** Quick edits, any text editor.
+
+#### Method 4: GitHub
+Push to GitHub and click checkboxes in the web interface!
+
+**Perfect for:** Tracking progress across devices.
+
+---
+
+### 📊 View Your Stats Anytime
+
 ```bash
 python3 xp-calculator.py
 ```
 
-The script shows:
-- Your current level and total XP
-- Visual progress bar
-- XP breakdown by level
-- Achievements, boss battles, and Easter eggs found
-- Motivational messages based on your progress
-
-**Example Output:**
+Shows your complete progress dashboard:
 ```
 🎮 CLAUDE CODE MASTERY QUEST - XP CALCULATOR
 ============================================================
@@ -80,9 +104,6 @@ Current Status:
 
   Progress: [████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]
 ```
-
-#### GitHub/Other Viewers:
-The checkboxes work in GitHub too! Just view the file and click to toggle.
 
 ---
 

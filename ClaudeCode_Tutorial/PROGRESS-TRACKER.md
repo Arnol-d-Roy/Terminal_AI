@@ -9,23 +9,40 @@
 +--------------------------------------------------+
 ```
 
-## 🎮 How to Use Interactive Checkboxes
+## 🎮 How to Track Your Progress
 
-### In VS Code or GitHub:
-1. **Click the checkbox** next to any item to mark it complete
-2. The checkbox will automatically toggle: `[ ]` → `[x]`
-3. Your markdown preview will show checked/unchecked boxes
-4. **Run the XP calculator script** (see below) to auto-calculate your total XP!
+### ⭐ Easiest Method: Interactive Terminal Tracker
+```bash
+python3 interactive-tracker.py
+```
 
-### Auto-Calculate Your XP:
-Run this command in the terminal from the tutorial directory:
+**Features:**
+- Interactive menu to browse all levels
+- Type a number to check/uncheck any task
+- Updates this file automatically
+- See your XP instantly
+
+**How to use:**
+1. Run the command above
+2. Select a level (1-5)
+3. Type a task number to toggle it
+4. Press 'S' to see your stats
+5. Press 'B' to go back, 'Q' to quit
+
+### 📊 View Your Stats:
 ```bash
 python3 xp-calculator.py
 ```
-This will scan your checkboxes and display your current XP, level, and progress!
+Displays your current XP, level, progress bar, and achievements!
 
-### Manual Tracking:
-If you prefer, you can manually fill in the `Your XP` fields as you check boxes.
+### ✏️ Manual Editing:
+Edit this file directly:
+- `- [ ]` = Unchecked (incomplete)
+- `- [x]` = Checked (complete)
+
+### 🔧 VS Code Users:
+Install "Markdown All in One" extension, then press `Alt+C` on any checkbox line.
+See [INSTALL-EXTENSIONS.md](./INSTALL-EXTENSIONS.md) for details.
 
 ---
 
