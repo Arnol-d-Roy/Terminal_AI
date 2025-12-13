@@ -96,19 +96,19 @@ def calculate_xp():
         "Level 5": 0
     }
 
-    # Parse each level's XP
+    # Parse each level's XP (with correct section headers)
     level_sections = [
-        ("Level 1: Novice", "Level 1"),
-        ("Level 2: Apprentice", "Level 2"),
-        ("Level 3: Journeyman", "Level 3"),
-        ("Level 4: Expert", "Level 4"),
-        ("Level 5: Master", "Level 5")
+        ("Level 1: Novice - Detailed Tracking", "Level 1"),
+        ("Level 2: Apprentice - Detailed Tracking", "Level 2"),
+        ("Level 3: Journeyman - Detailed Tracking", "Level 3"),
+        ("Level 4: Expert - Detailed Tracking", "Level 4"),
+        ("Level 5: Master - Detailed Tracking", "Level 5")
     ]
 
     for section_title, level_key in level_sections:
-        # Find section in content
-        pattern = f"## {section_title}.*?(?=##|$)"
-        section_match = re.search(pattern, content, re.DOTALL)
+        # Find section in content (match until next ## that's not ###)
+        pattern = f"## {re.escape(section_title)}.*?(?=^## [^#]|\\Z)"
+        section_match = re.search(pattern, content, re.DOTALL | re.MULTILINE)
 
         if section_match:
             section = section_match.group(0)

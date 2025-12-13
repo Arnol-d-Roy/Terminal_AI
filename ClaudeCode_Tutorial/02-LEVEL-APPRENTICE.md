@@ -1,55 +1,70 @@
-# Level 2: Apprentice
-## Building Your Foundation
 
 ```
-+--------------------------------------------------+
-|  LEVEL 2: APPRENTICE                             |
-|  XP Range: 100-299                               |
-|  Status: [==========] LEARNING                   |
-+--------------------------------------------------+
+ ______________________________________________________________________
+|                                                                      |
+|   L E V E L   2 :   A P P R E N T I C E                             |
+|                                                                      |
+|   Building Your Foundation                                           |
+|                                                                      |
+|   XP Range: 100-299  |  Status: LEARNING                            |
+|                                                                      |
+|______________________________________________________________________|
 ```
 
----
-
-## Level Objectives
+======================================================================
+                        LEVEL OBJECTIVES
+======================================================================
 
 By the end of this level, you will:
+
 - [ ] Master command-line flags and options
 - [ ] Understand prompt modes and input methods
 - [ ] Work effectively with files and code
 - [ ] Configure basic settings
 - [ ] Use Claude Code for real coding tasks
 
-**Prerequisites**: Completed Level 1 (100+ XP)
-**Estimated Time**: 1-2 hours
-**XP Available**: 200 XP
+```
++--------------------------------+
+|  Prerequisites: Level 1 (100+) |
+|  Estimated Time: 1-2 hours     |
+|  XP Available: 200 XP          |
++--------------------------------+
+```
 
----
+----------------------------------------------------------------------
+
 
 ## Chapter 1: Command-Line Flags Deep Dive
 
 ### What Are Flags?
 
-Flags (also called options or switches) modify how Claude Code behaves. They start with `-` (short form) or `--` (long form).
+Flags (also called options or switches) modify how Claude Code
+behaves. They start with `-` (short form) or `--` (long form).
 
 ```bash
 claude -r              # Short form
 claude --resume        # Long form (same thing)
 ```
 
+
 ### The Flag Family
 
 Here's your expanded toolkit:
 
-| Flag | Long Form | Purpose |
-|------|-----------|---------|
-| `-r` | `--resume` | Resume previous conversation |
-| `-p` | `--print` | Print mode (non-interactive) |
-| `-c` | `--continue` | Continue and add to conversation |
-| `--help` | | Show help information |
-| `--version` | | Show version number |
-| `--model` | | Specify AI model to use |
-| `--no-cache` | | Don't use cached responses |
+```
++----------+-------------+-------------------------------------+
+| Flag     | Long Form   | Purpose                             |
++----------+-------------+-------------------------------------+
+| -r       | --resume    | Resume previous conversation        |
+| -p       | --print     | Print mode (non-interactive)        |
+| -c       | --continue  | Continue and add to conversation    |
+|          | --help      | Show help information               |
+|          | --version   | Show version number                 |
+|          | --model     | Specify AI model to use             |
+|          | --no-cache  | Don't use cached responses          |
++----------+-------------+-------------------------------------+
+```
+
 
 ### Understanding Each Flag
 
@@ -61,28 +76,43 @@ You learned this in Level 1. It restores your previous conversation:
 claude -r
 ```
 
-**When to use**: Continuing a debugging session, ongoing project work, multi-day tasks.
+**When to use**: Continuing a debugging session, ongoing project
+work, multi-day tasks.
+
 
 #### The Print Flag (-p, --print)
 
-This is for quick, one-off questions without entering interactive mode:
+This is for quick, one-off questions without entering interactive
+mode:
 
 ```bash
 claude -p "What is a Python decorator?"
 ```
 
-Claude answers and immediately returns to your shell. No conversation mode.
+Claude answers and immediately returns to your shell. No
+conversation mode.
 
 **When to use**: Quick questions, scripting, piping output.
 
-**Achievement Unlocked: Flag Bearer** (+5 XP)
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Flag Bearer (+5 XP)     |
++----------------------------------------------------+
+```
 
----
+----------------------------------------------------------------------
+
 
 ### Practice Exercise 2.1: Flag Exploration
 
-**Difficulty**: Easy
-**XP Reward**: +10 XP
+```
++===========================================+
+|  EXERCISE 2.1                             |
+|-------------------------------------------|
+|  Difficulty: Easy                         |
+|  XP Reward: +10 XP                        |
++===========================================+
+```
 
 **Task**: Try each of these commands and observe the difference:
 
@@ -90,7 +120,7 @@ Claude answers and immediately returns to your shell. No conversation mode.
 # 1. Interactive mode
 claude
 
-# 2. Print mode with a question (exit the interactive mode first!)
+# 2. Print mode with a question (exit interactive first!)
 claude -p "Explain recursion in one sentence"
 
 # 3. Check version
@@ -100,21 +130,25 @@ claude --version
 claude --help
 ```
 
-**Success Criteria**: You understand the difference between interactive and print mode.
+**Success Criteria**: You understand the difference between
+interactive and print mode.
 
 - [ ] Completed
 
----
+----------------------------------------------------------------------
+
 
 ## Chapter 2: Print Mode Mastery
 
 ### The Power of -p
 
-Print mode transforms Claude Code from a conversation partner into a command-line tool.
+Print mode transforms Claude Code from a conversation partner
+into a command-line tool.
 
 ```bash
 claude -p "Your question or prompt here"
 ```
+
 
 ### Use Cases for Print Mode
 
@@ -124,17 +158,20 @@ claude -p "Your question or prompt here"
 claude -p "What does the 'yield' keyword do in Python?"
 ```
 
+
 #### 2. One-Line Code Generation
 
 ```bash
 claude -p "Write a bash one-liner to find all .js files"
 ```
 
+
 #### 3. Quick Syntax Reminders
 
 ```bash
 claude -p "Show me the syntax for a JavaScript arrow function"
 ```
+
 
 #### 4. Shell Integration
 
@@ -143,34 +180,36 @@ claude -p "Show me the syntax for a JavaScript arrow function"
 claude -p "Generate 5 random project name ideas" >> project_ideas.txt
 ```
 
+
 ### Interactive vs Print Mode Comparison
 
 ```
-INTERACTIVE MODE (claude)
-+------------------------+
-| - Ongoing conversation |
-| - Context builds up    |
-| - Multi-turn dialogue  |
-| - Exit when done       |
-+------------------------+
-
-PRINT MODE (claude -p)
-+------------------------+
-| - Single question      |
-| - Immediate response   |
-| - No session state     |
-| - Returns to shell     |
-+------------------------+
++-------------------------------+-------------------------------+
+|  INTERACTIVE MODE (claude)    |  PRINT MODE (claude -p)       |
++-------------------------------+-------------------------------+
+|  - Ongoing conversation       |  - Single question            |
+|  - Context builds up          |  - Immediate response         |
+|  - Multi-turn dialogue        |  - No session state           |
+|  - Exit when done             |  - Returns to shell           |
++-------------------------------+-------------------------------+
 ```
 
----
+----------------------------------------------------------------------
+
 
 ### Practice Exercise 2.2: Print Mode Workout
 
-**Difficulty**: Easy
-**XP Reward**: +10 XP
+```
++===========================================+
+|  EXERCISE 2.2                             |
+|-------------------------------------------|
+|  Difficulty: Easy                         |
+|  XP Reward: +10 XP                        |
++===========================================+
+```
 
-**Task**: Use print mode to answer these questions (run each as a separate command):
+**Task**: Use print mode to answer these questions (run each
+as a separate command):
 
 ```bash
 # 1. Get a quick definition
@@ -183,17 +222,21 @@ claude -p "Write a Python function that reverses a string"
 claude -p "How do I create a new git branch?"
 ```
 
-**Success Criteria**: Successfully used print mode three times without entering interactive mode.
+**Success Criteria**: Successfully used print mode three times
+without entering interactive mode.
 
 - [ ] Completed
 
----
+----------------------------------------------------------------------
+
 
 ## Chapter 3: Working with Files
 
 ### Claude Code's File Awareness
 
-When you start Claude Code in a directory, it can see and understand your files. This is where it becomes truly powerful.
+When you start Claude Code in a directory, it can see and
+understand your files. This is where it becomes truly powerful.
+
 
 ### Asking About Files
 
@@ -206,6 +249,7 @@ In interactive mode:
 > What dependencies does this project have?
 ```
 
+
 ### Reading Specific Files
 
 You can ask Claude to read and analyze files:
@@ -215,6 +259,7 @@ You can ask Claude to read and analyze files:
 > Analyze the main.py file and explain what it does
 > Are there any bugs in utils.js?
 ```
+
 
 ### File Modification
 
@@ -226,29 +271,47 @@ Claude Code can also help modify files:
 > Update the README with installation instructions
 ```
 
-**Important**: Claude will ask for permission before making changes. Pay attention to what it's proposing.
+```
++=======================================================+
+|  IMPORTANT: Claude will ask for permission before     |
+|  making changes. Pay attention to what it proposes.   |
++=======================================================+
+```
 
-**Achievement Unlocked: File Whisperer** (+5 XP)
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: File Whisperer (+5 XP)  |
++----------------------------------------------------+
+```
 
----
+----------------------------------------------------------------------
+
 
 ### Practice Exercise 2.3: File Interaction
 
-**Difficulty**: Medium
-**XP Reward**: +15 XP
+```
++===========================================+
+|  EXERCISE 2.3                             |
+|-------------------------------------------|
+|  Difficulty: Medium                       |
+|  XP Reward: +15 XP                        |
++===========================================+
+```
 
 **Task**: Navigate to a project with code files and:
 
-1. Start Claude Code: `claude`
-2. Ask: "List all files and their purposes"
-3. Ask: "Explain the most important file in detail"
-4. Ask: "What improvements would you suggest?"
+  1. Start Claude Code: `claude`
+  2. Ask: "List all files and their purposes"
+  3. Ask: "Explain the most important file in detail"
+  4. Ask: "What improvements would you suggest?"
 
-**Success Criteria**: Claude analyzed your project files and provided insights.
+**Success Criteria**: Claude analyzed your project files and
+provided insights.
 
 - [ ] Completed
 
----
+----------------------------------------------------------------------
+
 
 ## Chapter 4: The Dangerous Flag
 
@@ -258,30 +321,40 @@ Claude Code can also help modify files:
 claude -r --dangerously-skip-permissions
 ```
 
-**Warning**: This flag should be used with caution!
+```
++=======================================================+
+|  !!! WARNING: This flag should be used with caution!  |
++=======================================================+
+```
 
 ### What It Does
 
 Normally, Claude Code asks for permission before:
-- Modifying files
-- Running commands
-- Making system changes
 
-The `--dangerously-skip-permissions` flag bypasses these safety prompts.
+  * Modifying files
+  * Running commands
+  * Making system changes
+
+The `--dangerously-skip-permissions` flag bypasses these safety
+prompts.
+
 
 ### When to Use It
 
 **Appropriate situations**:
-- Automated scripts where you've reviewed the workflow
-- Repetitive tasks you've done many times
-- Controlled environments (containers, VMs)
-- When you fully trust the operations
+
+  * Automated scripts where you've reviewed the workflow
+  * Repetitive tasks you've done many times
+  * Controlled environments (containers, VMs)
+  * When you fully trust the operations
 
 **Avoid when**:
-- Working on production systems
-- Running unfamiliar commands
-- Working with sensitive data
-- On your main development machine without backups
+
+  * Working on production systems
+  * Running unfamiliar commands
+  * Working with sensitive data
+  * On your main development machine without backups
+
 
 ### The Risk-Reward Balance
 
@@ -301,9 +374,15 @@ The `--dangerously-skip-permissions` flag bypasses these safety prompts.
 
 The flag trades safety for speed. Use wisely.
 
-**Achievement Unlocked: Danger Zone Awareness** (+5 XP)
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Danger Zone             |
+|      Awareness (+5 XP)                             |
++----------------------------------------------------+
+```
 
----
+----------------------------------------------------------------------
+
 
 ## Chapter 5: Combining Flags
 
@@ -319,14 +398,20 @@ claude -r --model claude-3-opus
 claude -p --no-cache "What's the weather API syntax?"
 ```
 
+
 ### Common Combinations
 
-| Combination | Use Case |
-|-------------|----------|
-| `claude -r` | Continue yesterday's work |
-| `claude -p "question"` | Quick lookup |
-| `claude -r --dangerously-skip-permissions` | Automated workflows |
-| `claude --model opus` | Use specific model |
+```
++------------------------------------------+------------------------+
+| Combination                              | Use Case               |
++------------------------------------------+------------------------+
+| claude -r                                | Continue work          |
+| claude -p "question"                     | Quick lookup           |
+| claude -r --dangerously-skip-permissions | Automated workflows    |
+| claude --model opus                      | Use specific model     |
++------------------------------------------+------------------------+
+```
+
 
 ### Order Doesn't Matter
 
@@ -336,12 +421,19 @@ claude --model opus -r
 # Both work the same way
 ```
 
----
+----------------------------------------------------------------------
+
 
 ### Practice Exercise 2.4: Flag Combinations
 
-**Difficulty**: Medium
-**XP Reward**: +15 XP
+```
++===========================================+
+|  EXERCISE 2.4                             |
+|-------------------------------------------|
+|  Difficulty: Medium                       |
+|  XP Reward: +15 XP                        |
++===========================================+
+```
 
 **Task**: Practice these flag combinations:
 
@@ -358,17 +450,21 @@ claude -p "What is the difference between == and === in JavaScript?"
 claude --help
 ```
 
-**Success Criteria**: Successfully used at least 3 different flag combinations.
+**Success Criteria**: Successfully used at least 3 different
+flag combinations.
 
 - [ ] Completed
 
----
+----------------------------------------------------------------------
+
 
 ## Chapter 6: Effective Prompting
 
 ### The Art of Good Prompts
 
-The quality of Claude's responses depends heavily on how you ask questions.
+The quality of Claude's responses depends heavily on how you
+ask questions.
+
 
 ### Prompting Principles
 
@@ -376,16 +472,20 @@ The quality of Claude's responses depends heavily on how you ask questions.
 
 ```
 Bad:  "Fix my code"
-Good: "Fix the null pointer exception in the getData() function on line 45 of utils.py"
+Good: "Fix the null pointer exception in the getData()
+       function on line 45 of utils.py"
 ```
+
 
 #### 2. Provide Context
 
 ```
 Bad:  "How do I sort this?"
-Good: "I have an array of user objects with 'name' and 'age' fields.
-       How do I sort them by age in descending order in JavaScript?"
+Good: "I have an array of user objects with 'name' and 'age'
+       fields. How do I sort them by age in descending order
+       in JavaScript?"
 ```
+
 
 #### 3. State Your Goal
 
@@ -395,6 +495,7 @@ Good: "Review the processOrder function for potential bugs.
        I'm concerned about edge cases with empty orders."
 ```
 
+
 #### 4. Specify Format
 
 ```
@@ -403,9 +504,11 @@ Good: "Review the processOrder function for potential bugs.
 "Keep the explanation under 100 words"
 ```
 
+
 ### Prompt Templates
 
 #### For Code Review
+
 ```
 Review [filename] for:
 - Potential bugs
@@ -414,7 +517,9 @@ Review [filename] for:
 Focus on the [specific function/section].
 ```
 
+
 #### For Debugging
+
 ```
 I'm getting [error message] when running [command/function].
 The relevant code is in [file].
@@ -422,7 +527,9 @@ Expected behavior: [what should happen]
 Actual behavior: [what is happening]
 ```
 
+
 #### For Learning
+
 ```
 Explain [concept] with:
 - A simple analogy
@@ -430,14 +537,26 @@ Explain [concept] with:
 - Common mistakes to avoid
 ```
 
-**Achievement Unlocked: Prompt Architect** (+5 XP)
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Prompt Architect        |
+|      (+5 XP)                                       |
++----------------------------------------------------+
+```
 
----
+----------------------------------------------------------------------
+
 
 ### Practice Exercise 2.5: Prompt Crafting
 
-**Difficulty**: Medium
-**XP Reward**: +15 XP
+```
++===========================================+
+|  EXERCISE 2.5                             |
+|-------------------------------------------|
+|  Difficulty: Medium                       |
+|  XP Reward: +15 XP                        |
++===========================================+
+```
 
 **Task**: Rewrite these bad prompts as good prompts, then test them:
 
@@ -450,11 +569,13 @@ Explain [concept] with:
 **Bad Prompt 3**: "Write some code"
 **Your Better Version**: _______________
 
-**Success Criteria**: You created specific, context-rich prompts that got better responses.
+**Success Criteria**: You created specific, context-rich prompts
+that got better responses.
 
 - [ ] Completed
 
----
+----------------------------------------------------------------------
+
 
 ## Chapter 7: Real-World Coding Tasks
 
@@ -466,6 +587,7 @@ Explain [concept] with:
 > Focus on what a beginner might find confusing.
 ```
 
+
 ### Task 2: Bug Hunting
 
 ```
@@ -473,6 +595,7 @@ Explain [concept] with:
 > The form handler is in src/handlers/form.js
 > Help me find and fix the issue.
 ```
+
 
 ### Task 3: Code Generation
 
@@ -484,6 +607,7 @@ Explain [concept] with:
 > Include type hints and docstrings.
 ```
 
+
 ### Task 4: Refactoring
 
 ```
@@ -494,6 +618,7 @@ Explain [concept] with:
 > Explain each change you make.
 ```
 
+
 ### Task 5: Test Writing
 
 ```
@@ -502,65 +627,94 @@ Explain [concept] with:
 > Cover edge cases and error conditions
 ```
 
----
+----------------------------------------------------------------------
+
 
 ## Level 2 Challenge: The Code Companion
 
-**Difficulty**: Medium
-**XP Reward**: +25 XP
+```
++======================================================================+
+|  CHALLENGE: THE CODE COMPANION                                       |
+|----------------------------------------------------------------------|
+|  Difficulty: Medium                                                  |
+|  XP Reward: +25 XP                                                   |
++======================================================================+
+```
 
 ### The Scenario
 
-You're starting a new feature and need Claude Code's help throughout the process.
+You're starting a new feature and need Claude Code's help
+throughout the process.
+
 
 ### Your Mission
 
-1. Navigate to a project directory
-2. Use Claude Code to:
-   - Understand the existing code structure
-   - Get suggestions for implementing a new feature
-   - Have Claude write a small code snippet
-   - Review the snippet for issues
-3. Use at least 3 different flags during this session
-4. Practice good prompting techniques
+  1. Navigate to a project directory
+  2. Use Claude Code to:
+     - Understand the existing code structure
+     - Get suggestions for implementing a new feature
+     - Have Claude write a small code snippet
+     - Review the snippet for issues
+  3. Use at least 3 different flags during this session
+  4. Practice good prompting techniques
+
 
 ### Document Your Session
 
 Note down:
-- What flags you used and why
-- Your best prompt
-- What you learned
 
----
+  * What flags you used and why
+  * Your best prompt
+  * What you learned
+
+----------------------------------------------------------------------
+
 
 ## Level 2 Boss Battle: The Multi-Modal Master
 
-**Difficulty**: Hard
-**XP Reward**: +50 XP
+```
++======================================================================+
+|                                                                      |
+|  *** BOSS BATTLE: THE MULTI-MODAL MASTER ***                         |
+|                                                                      |
+|----------------------------------------------------------------------|
+|  Difficulty: Hard                                                    |
+|  XP Reward: +50 XP                                                   |
++======================================================================+
+```
 
 ### The Ultimate Challenge
 
 Complete a full coding workflow using everything you've learned:
 
+
 #### Phase 1: Project Analysis
-1. Start Claude Code in a project directory
-2. Use effective prompts to understand the codebase
-3. Identify at least one area for improvement
+
+  1. Start Claude Code in a project directory
+  2. Use effective prompts to understand the codebase
+  3. Identify at least one area for improvement
+
 
 #### Phase 2: Implementation
-1. Ask Claude to help implement an improvement
-2. Review the suggested changes carefully
-3. Have Claude explain why each change was made
+
+  1. Ask Claude to help implement an improvement
+  2. Review the suggested changes carefully
+  3. Have Claude explain why each change was made
+
 
 #### Phase 3: Documentation
-1. Ask Claude to update or create documentation
-2. Use print mode to generate a quick summary
-3. Use the resume flag to continue if needed
+
+  1. Ask Claude to update or create documentation
+  2. Use print mode to generate a quick summary
+  3. Use the resume flag to continue if needed
+
 
 #### Phase 4: Review
-1. Have Claude review the changes made
-2. Ask for any potential issues
-3. Get suggestions for future improvements
+
+  1. Have Claude review the changes made
+  2. Ask for any potential issues
+  3. Get suggestions for future improvements
+
 
 ### Victory Conditions
 
@@ -570,35 +724,35 @@ Complete a full coding workflow using everything you've learned:
 - [ ] Practiced good prompting throughout
 - [ ] Completed a real coding task with Claude's help
 
----
+----------------------------------------------------------------------
+
 
 ## Level 2 Summary
 
 ### New Skills Acquired
 
-1. **Flag Mastery**: `-r`, `-p`, `--dangerously-skip-permissions`
-2. **Print Mode**: Quick, non-interactive queries
-3. **File Operations**: Reading, understanding, modifying code
-4. **Effective Prompting**: Specific, contextual, goal-oriented questions
-5. **Real Tasks**: Code review, debugging, generation, refactoring
+  1. **Flag Mastery**: `-r`, `-p`, `--dangerously-skip-permissions`
+  2. **Print Mode**: Quick, non-interactive queries
+  3. **File Operations**: Reading, understanding, modifying code
+  4. **Effective Prompting**: Specific, contextual, goal-oriented
+  5. **Real Tasks**: Code review, debugging, generation, refactoring
+
 
 ### Command Reference Update
 
-```bash
-# Level 1 Commands
-claude              # Start conversation
-claude -r           # Resume conversation
-/help               # In-session help
-/exit               # Exit session
-
-# Level 2 Commands (NEW)
-claude -p "prompt"  # Print mode
-claude --help       # Command help
-claude --version    # Version info
-claude -r --dangerously-skip-permissions  # Skip permission prompts
+```
++----------------------------------------+-----------------------------+
+| Level 1 Commands                       | Level 2 Commands (NEW)      |
++----------------------------------------+-----------------------------+
+| claude          # Start conversation   | claude -p "prompt" # Print  |
+| claude -r       # Resume conversation  | claude --help      # Help   |
+| /help           # In-session help      | claude --version   # Ver    |
+| /exit           # Exit session         | --dangerously-skip-perms    |
++----------------------------------------+-----------------------------+
 ```
 
----
+----------------------------------------------------------------------
+
 
 ## Level Completion Checklist
 
@@ -611,6 +765,7 @@ claude -r --dangerously-skip-permissions  # Skip permission prompts
 - [ ] Can combine flags
 - [ ] Practice effective prompting
 
+
 ### Exercises Completed
 
 - [ ] Exercise 2.1: Flag Exploration (+10 XP)
@@ -619,10 +774,12 @@ claude -r --dangerously-skip-permissions  # Skip permission prompts
 - [ ] Exercise 2.4: Flag Combinations (+15 XP)
 - [ ] Exercise 2.5: Prompt Crafting (+15 XP)
 
+
 ### Challenges Completed
 
 - [ ] The Code Companion (+25 XP)
 - [ ] Boss Battle: The Multi-Modal Master (+50 XP)
+
 
 ### Achievements Earned
 
@@ -632,53 +789,66 @@ claude -r --dangerously-skip-permissions  # Skip permission prompts
 - [ ] Prompt Architect (+5 XP)
 - [ ] Apprentice Graduate (+5 XP)
 
----
+----------------------------------------------------------------------
+
 
 ## XP Calculation
 
-| Item | XP |
-|------|-----|
-| Reading Chapters (7 x 5 XP) | 35 |
-| Exercises (5 total) | 65 |
-| Challenge | 25 |
-| Boss Battle | 50 |
-| Achievements (5 x 5 XP) | 25 |
-| **Maximum Available** | **200** |
-| **Required for Level 3** | **300 total** |
+```
++----------------------------------+---------+
+| Item                             | XP      |
++----------------------------------+---------+
+| Reading Chapters (7 x 5 XP)      | 35      |
+| Exercises (5 total)              | 65      |
+| Challenge                        | 25      |
+| Boss Battle                      | 50      |
+| Achievements (5 x 5 XP)          | 25      |
++----------------------------------+---------+
+| MAXIMUM AVAILABLE                | 200     |
+| Required for Level 3             | 300     |
++----------------------------------+---------+
+```
 
----
+----------------------------------------------------------------------
+
 
 ## Ready for Level 3?
 
 If your total XP (Level 1 + Level 2) is 300 or more, you're ready!
 
-**Your Current Progress**:
 ```
-Level 2 Complete!
-Level 2 XP Earned: ___ / 200 possible
-Total XP: ___ (Level 1) + ___ (Level 2) = ___
-
-[==========] JOURNEYMAN AWAITS!
++============================================================+
+|  Level 2 Complete!                                         |
+|  Level 2 XP Earned: ___ / 200 possible                     |
+|  Total XP: ___ (Level 1) + ___ (Level 2) = ___            |
+|                                                            |
+|  [==========] JOURNEYMAN AWAITS!                           |
++============================================================+
 ```
 
-[Continue to Level 3: Journeyman -->](./03-LEVEL-JOURNEYMAN.md)
+  --> Continue to Level 3: Journeyman (03-LEVEL-JOURNEYMAN.md)
 
----
+----------------------------------------------------------------------
+
 
 ## Power-Up Tips
 
-**Easter Egg #1**: You can pipe content into Claude Code:
-```bash
-cat error.log | claude -p "What's causing these errors?"
+```
++============================================================+
+|  EASTER EGG #1: Pipe content into Claude                   |
+|  cat error.log | claude -p "What's causing these errors?"  |
++============================================================+
+
++============================================================+
+|  EASTER EGG #2: Chain print mode commands                  |
+|  claude -p "List 5 project ideas" | head -1 |              |
+|  claude -p "Elaborate on this idea"                        |
++============================================================+
 ```
 
-**Easter Egg #2**: Chain print mode commands:
-```bash
-claude -p "List 5 project ideas" | head -1 | claude -p "Elaborate on this idea"
-```
+======================================================================
+  Level 2 Complete - You are now a Claude Code Apprentice!
+======================================================================
 
----
-
-*Level 2 Complete - You are now a Claude Code Apprentice!*
-
-[<-- Level 1: Novice](./01-LEVEL-NOVICE.md) | [Level 3: Journeyman -->](./03-LEVEL-JOURNEYMAN.md)
+  <-- Level 1: Novice (01-LEVEL-NOVICE.md)
+  --> Level 3: Journeyman (03-LEVEL-JOURNEYMAN.md)
