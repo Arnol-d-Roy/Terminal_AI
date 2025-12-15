@@ -212,7 +212,7 @@ Fill this out when you begin:
 - [x] Flag Bearer (+5 XP)
 - [x] File Whisperer (+5 XP)
 - [x] Danger Zone Awareness (+5 XP)
-- [ ] Security Conscious (+5 XP)
+- [x] Security Conscious (+5 XP)
 - [x] Prompt Architect (+5 XP)
 - [ ] Apprentice Graduate (+5 XP)
 

@@ -453,7 +453,7 @@ Specific actions that require approval:
      - Network requests
      - API calls
      - Downloading files
-     - MCP tool usage
+     - MCP tool usage *(see Glossary in 00-START-HERE.md)*
 
 
 ### Permission Prompt Example
@@ -607,7 +607,8 @@ Solution:
 
 ### Advanced: Custom Permission Handlers
 
-Create custom approval flows:
+Create custom approval flows using **hooks** (custom shell scripts that
+run automatically - see Glossary in 00-START-HERE.md for details):
 
 ```bash
 # ~/.config/claude-code/hooks/permission.sh

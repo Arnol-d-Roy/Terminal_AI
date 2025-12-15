@@ -42,10 +42,10 @@ def calculate_xp():
     # Level thresholds
     levels = [
         (0, "Novice", 170),
-        (100, "Apprentice", 200),
-        (300, "Journeyman", 220),
-        (600, "Expert", 280),
-        (1000, "Master", 325)
+        (100, "Apprentice", 210),
+        (300, "Journeyman", 270),
+        (600, "Expert", 380),
+        (1000, "Master", 360)
     ]
 
     # Determine current level
@@ -65,7 +65,7 @@ def calculate_xp():
             break
 
     # Calculate progress percentage
-    max_xp = 1125
+    max_xp = 1390
     progress_percent = (total_xp / max_xp) * 100
 
     # Display results
@@ -116,7 +116,7 @@ def calculate_xp():
             section_xp = sum(int(xp) for xp in re.findall(checked_pattern, section, re.IGNORECASE))
             level_xp[level_key] = section_xp
 
-    max_xp_per_level = [170, 200, 220, 280, 325]
+    max_xp_per_level = [170, 210, 270, 380, 360]
     for i, (level_key, xp) in enumerate(level_xp.items()):
         max_xp_level = max_xp_per_level[i]
         level_percent = (xp / max_xp_level) * 100 if max_xp_level > 0 else 0

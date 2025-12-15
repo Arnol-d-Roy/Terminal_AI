@@ -218,6 +218,7 @@ def auto_complete_achievements(content, tasks, level_num):
             (chapters_done >= 2, "Flag Bearer"),
             (exercises_done >= 2, "File Whisperer"),
             (chapters_done >= 4, "Danger Zone Awareness"),
+            (chapters_done >= 5, "Security Conscious"),
             (exercises_done >= 4, "Prompt Architect"),
             (chapters_done == total_chapters and exercises_done == total_exercises and boss_done > 0, "Apprentice Graduate")
         ],
@@ -226,6 +227,10 @@ def auto_complete_achievements(content, tasks, level_num):
             (exercises_done >= 2, "Configuration Master"),
             (exercises_done >= 3, "Task Commander"),
             (chapters_done >= 5, "Efficiency Expert"),
+            (exercises_done >= 4, "Memory Master"),
+            (exercises_done >= 5, "Visual Thinker"),
+            (chapters_done >= 6, "Budget Conscious"),
+            (challenges_done >= 2, "Git Master"),
             (chapters_done == total_chapters and exercises_done == total_exercises and boss_done > 0, "Journeyman Complete")
         ],
         4: [  # Level 4: Expert
@@ -234,6 +239,12 @@ def auto_complete_achievements(content, tasks, level_num):
             (exercises_done >= 3, "Automation Architect"),
             (chapters_done >= 5, "Prompt Wizard"),
             (exercises_done >= 4, "Troubleshooter"),
+            (chapters_done >= 8, "Agent Commander"),
+            (chapters_done >= 9, "Protocol Master"),
+            (exercises_done >= 5, "Deep Thinker"),
+            (chapters_done >= 11, "Error Handler"),
+            (exercises_done >= 6, "Data Scientist"),
+            (chapters_done >= 13, "Hook Master"),
             (chapters_done == total_chapters and exercises_done == total_exercises and boss_done > 0, "Expert Elite")
         ],
         5: [  # Level 5: Master
@@ -241,17 +252,23 @@ def auto_complete_achievements(content, tasks, level_num):
             (exercises_done >= 2, "Systems Architect"),
             (exercises_done >= 3, "Knowledge Sharer"),
             (chapters_done >= 4, "Boundary Pusher"),
+            (chapters_done >= 6, "AI Polyglot"),
+            (exercises_done >= 4, "Plugin Creator"),
             (chapters_done == total_chapters and exercises_done == total_exercises and boss_done > 0, "True Master")
         ]
     }
 
-    # Auto-mark achievements
+    # Auto-mark achievements (both lock and unlock based on criteria)
     criteria = achievement_criteria.get(level_num, [])
     for should_unlock, achievement_name in criteria:
-        if should_unlock:
-            # Find and mark the achievement
-            for task in tasks:
-                if task['category'] == 'Achievement' and achievement_name in task['name'] and not task['checked']:
+        # Find the achievement task
+        for task in tasks:
+            if task['category'] == 'Achievement' and achievement_name in task['name']:
+                # Unlock achievement if criteria met and currently locked
+                if should_unlock and not task['checked']:
+                    content = toggle_task(content, task)
+                # Lock achievement if criteria NOT met and currently unlocked
+                elif not should_unlock and task['checked']:
                     content = toggle_task(content, task)
 
     return content
@@ -269,7 +286,7 @@ def show_stats():
     except Exception as e:
         # Fallback to basic stats
         total_xp = calculate_total_xp(content)
-        print(f"\n{Colors.BOLD}{Colors.CYAN}Total XP: {total_xp} / 1125{Colors.END}\n")
+        print(f"\n{Colors.BOLD}{Colors.CYAN}Total XP: {total_xp} / 1390{Colors.END}\n")
 
 def level_menu(level_num):
     """Show menu for a specific level with read and track options"""
@@ -302,7 +319,7 @@ def level_menu(level_num):
         level_xp = sum(t['xp'] for t in tasks if t['checked'])
         max_level_xp = sum(t['xp'] for t in tasks)
 
-        print(f"{Colors.BOLD}Overall Progress:{Colors.END} {total_xp} / 1125 XP")
+        print(f"{Colors.BOLD}Overall Progress:{Colors.END} {total_xp} / 1390 XP")
         print(f"{Colors.BOLD}Level Progress:{Colors.END} {completed}/{len(tasks)} tasks ({level_xp}/{max_level_xp} XP)\n")
 
         # Group tasks by category
@@ -454,6 +471,33 @@ def level_menu(level_num):
             show_stats()
             input(f"\n{Colors.BOLD}Press Enter to continue...{Colors.END}")
 
+def reset_progress():
+    """Reset all progress to unchecked"""
+    content, tracker_file = load_tracker()
+    if not content:
+        print(f"{Colors.RED}Error: PROGRESS-TRACKER.md not found!{Colors.END}")
+        return
+
+    # Confirm reset
+    print(f"\n{Colors.BOLD}{Colors.RED}⚠ WARNING: This will reset ALL progress!{Colors.END}")
+    print(f"{Colors.YELLOW}All completed tasks will be marked as incomplete.{Colors.END}")
+    print(f"{Colors.YELLOW}All earned XP will be lost.{Colors.END}\n")
+
+    confirm = input(f"{Colors.BOLD}Are you sure? Type 'RESET' to confirm: {Colors.END}").strip()
+
+    if confirm != 'RESET':
+        print(f"{Colors.GREEN}Reset cancelled.{Colors.END}")
+        return
+
+    # Replace all checked boxes with unchecked
+    updated_content = re.sub(r'- \[x\]', '- [ ]', content)
+
+    # Save the updated tracker
+    save_tracker(updated_content, tracker_file)
+
+    print(f"\n{Colors.GREEN}✓ Progress reset successfully!{Colors.END}")
+    print(f"{Colors.GREEN}All tasks are now unchecked. Start your journey again!{Colors.END}")
+
 def main_menu():
     """Main menu"""
     clear_screen()
@@ -465,7 +509,7 @@ def main_menu():
     content, _ = load_tracker()
     if content:
         total_xp = calculate_total_xp(content)
-        print(f"{Colors.BOLD}Current XP: {Colors.GREEN}{total_xp}{Colors.END}{Colors.BOLD} / 1125{Colors.END}\n")
+        print(f"{Colors.BOLD}Current XP: {Colors.GREEN}{total_xp}{Colors.END}{Colors.BOLD} / 1390{Colors.END}\n")
 
     print(f"{Colors.BOLD}Main Menu:{Colors.END}\n")
 
@@ -487,6 +531,7 @@ def main_menu():
     print(f"\n{Colors.CYAN}UTILITIES:{Colors.END}")
     print(f"  X. Show Detailed Stats")
     print(f"  H. Help & Troubleshooting")
+    print(f"  R. Reset Progress")
     print(f"  E. Exit")
 
     print()
@@ -525,6 +570,10 @@ def main_menu():
         filepath = Path(__file__).parent / 'TROUBLESHOOTING.md'
         if filepath.exists():
             view_markdown_file(filepath)
+        input(f"\n{Colors.BOLD}Press Enter to continue...{Colors.END}")
+        return True
+    elif choice == 'R':
+        reset_progress()
         input(f"\n{Colors.BOLD}Press Enter to continue...{Colors.END}")
         return True
     else:

@@ -1373,10 +1373,10 @@ As a Claude Code Master, you embody these principles:
 | Level 1: Novice                  | 170     |
 | Level 2: Apprentice              | 210     |
 | Level 3: Journeyman              | 270     |
-| Level 4: Expert                  | 360     |
-| Level 5: Master                  | 345     |
+| Level 4: Expert                  | 380     |
+| Level 5: Master                  | 360     |
 +----------------------------------+---------+
-| TOTAL MAXIMUM                    | 1355    |
+| TOTAL MAXIMUM                    | 1390    |
 +----------------------------------+---------+
 ```
 

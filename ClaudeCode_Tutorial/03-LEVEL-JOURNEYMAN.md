@@ -395,12 +395,14 @@ Beyond the essentials, more specialized commands:
 | /init       | Initialize Claude Code in current directory   |
 | /cost       | Show token usage and estimated cost           |
 | /settings   | View/modify configuration                     |
-| /tasks      | List background tasks (agents, shells)        |
+| /tasks      | List background tasks (agents*, shells)       |
 | /bugs       | Report issues to Claude Code team             |
 | /version    | Show Claude Code version info                 |
 | /add-dir    | Add additional directory to workspace         |
-| /rewind     | Rollback to previous checkpoint               |
+| /rewind     | Rollback to previous checkpoint*              |
 +-------------+-----------------------------------------------+
+
+*See Glossary in 00-START-HERE.md for "agents" and "checkpoint"
 ```
 
 

@@ -98,8 +98,8 @@ Shows your complete progress dashboard:
 +============================================================+
 |  Current Status:                                           |
 |    Level: 2 - Apprentice                                   |
-|    Total XP: 145 / 1355                                    |
-|    Completion: 12.9%                                       |
+|    Total XP: 145 / 1390                                    |
+|    Completion: 10.4%                                       |
 |                                                            |
 |    Progress: [====------------------------------------]    |
 +============================================================+
@@ -173,7 +173,7 @@ ClaudeCode_Tutorial/
 |  Date Started: ____________                                |
 |                                                            |
 |  Current Level: 1 (Novice)                                 |
-|  Total XP: 0 / 1355                                        |
+|  Total XP: 0 / 1390                                        |
 |                                                            |
 |  Progress: [----------------------------------------] 0%   |
 |                                                            |
@@ -210,6 +210,94 @@ wsl -d ubuntu
 # Verify Claude Code is installed
 claude --version
 ```
+
+----------------------------------------------------------------------
+
+
+## Essential Terms Glossary
+
+Before you begin your journey, here are key terms you'll encounter.
+Don't worry if they seem unfamiliar now - you'll learn them gradually!
+
+### Basic Concepts
+
+**Session**
+A conversation with Claude Code from start to finish. When you run
+`claude`, a new session starts. When you exit, the session ends (but
+can be resumed later with `claude -r`).
+
+**Flags**
+Command-line options that modify how a program runs. For example,
+`claude -r` uses the `-r` flag to resume your last conversation.
+Flags usually start with `-` (short form) or `--` (long form).
+
+**Print Mode**
+A special way to use Claude Code that displays output directly to your
+terminal without starting an interactive chat. Used with the `-p` flag,
+like: `claude -p "explain this code" index.js`
+
+**Context/Context Window**
+The "memory" Claude Code has about your project. It includes files
+you're working on, previous messages in the session, and project
+structure. Think of it like Claude's "awareness" of your codebase.
+
+**Tokens**
+The units that AI models use to process text. Roughly, 1 token ≈ 4
+characters. Important because API usage is measured in tokens. Don't
+worry about the details - just know more tokens = higher API cost.
+
+### Intermediate Concepts (Level 2-3)
+
+**Checkpoint**
+An automatic save point that Claude Code creates before making changes
+to your files. Like a safety net - if something goes wrong, you can
+rewind to the checkpoint and undo changes.
+
+**.claudeignore File**
+A file that tells Claude Code which files or folders to ignore (not
+include in context). Similar to `.gitignore` for Git. Useful for
+excluding large folders like `node_modules/` to save on token usage.
+
+**Agents (or Subagents)**
+Specialized AI assistants that Claude Code can launch to handle
+specific tasks in parallel. Think of them as helpers that can work on
+different parts of a complex problem simultaneously while you continue
+working. They only read/analyze code, they don't modify files.
+
+### Advanced Concepts (Level 4-5)
+
+**MCP (Model Context Protocol)**
+A standardized way for Claude Code to connect with external tools and
+services. Like a universal adapter that lets Claude Code access
+databases, GitHub, web content, and more. You configure MCP "servers"
+to extend Claude Code's capabilities beyond file editing.
+
+**Hooks**
+Custom shell commands that automatically run at specific points in
+Claude Code's workflow. For example, you could create a hook that
+automatically formats code after every file edit, or runs tests before
+accepting changes. Hooks let you customize and automate Claude Code's
+behavior to match your workflow.
+
+**Plugins**
+Pre-packaged bundles that can include slash commands, agents, MCP
+servers, and hooks all in one installation. Plugins make it easy to
+add complex functionality to Claude Code without manual configuration.
+
+### Quick Reference: When You'll Learn Each Term
+
+```
++------------------+----------------------------------------+
+| Level 1 (Novice) | Sessions, basic commands               |
+| Level 2 (Appr.)  | Flags, print mode, context, tokens     |
+| Level 3 (Journ.) | Checkpoints, .claudeignore, agents     |
+| Level 4 (Expert) | MCP, hooks, advanced configuration     |
+| Level 5 (Master) | Plugins, integration patterns          |
++------------------+----------------------------------------+
+```
+
+**Pro Tip**: Bookmark this section! Come back anytime you encounter
+an unfamiliar term in the tutorials.
 
 ----------------------------------------------------------------------
 
