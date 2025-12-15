@@ -80,10 +80,10 @@ Fill this out when you begin:
 | Level | Title       | XP Required | Your XP   | Status      |
 +-------+-------------+-------------+-----------+-------------+
 |   1   | Novice      |     0       | ___ / 170 | [ ] Complete|
-|   2   | Apprentice  |   100       | ___ / 200 | [ ] Complete|
-|   3   | Journeyman  |   300       | ___ / 220 | [ ] Complete|
-|   4   | Expert      |   600       | ___ / 280 | [ ] Complete|
-|   5   | Master      |  1000       | ___ / 255 | [ ] Complete|
+|   2   | Apprentice  |   100       | ___ / 210 | [ ] Complete|
+|   3   | Journeyman  |   300       | ___ / 270 | [ ] Complete|
+|   4   | Expert      |   600       | ___ / 360 | [ ] Complete|
+|   5   | Master      |  1000       | ___ / 345 | [ ] Complete|
 +-------+-------------+-------------+-----------+-------------+
 ```
 
@@ -93,7 +93,7 @@ Fill this out when you begin:
 ```
 +============================================================+
 |                                                            |
-|  Total XP: __________ / 1125                               |
+|  Total XP: __________ / 1390                               |
 |                                                            |
 |  Progress: [__________________________________________]    |
 |                                                            |
@@ -148,11 +148,11 @@ Fill this out when you begin:
 
 ### Achievements
 
-- [ ] Understanding the Mission (+5 XP)
-- [ ] First Contact (+5 XP)
-- [ ] Command Discovery (+5 XP)
-- [ ] Time Traveler (+5 XP)
-- [ ] Novice No More (+5 XP)
+- [x] Understanding the Mission (+5 XP)
+- [x] First Contact (+5 XP)
+- [x] Command Discovery (+5 XP)
+- [x] Time Traveler (+5 XP)
+- [x] Novice No More (+5 XP)
 
 **Achievement XP: ___ / 25**
 
@@ -170,24 +170,25 @@ Fill this out when you begin:
 
 ### Chapter Progress
 
-- [ ] Chapter 1: Command-Line Flags Deep Dive (+5 XP)
-- [ ] Chapter 2: Print Mode Mastery (+5 XP)
-- [ ] Chapter 3: Working with Files (+5 XP)
-- [ ] Chapter 4: The Dangerous Flag (+5 XP)
-- [ ] Chapter 5: Combining Flags (+5 XP)
-- [ ] Chapter 6: Effective Prompting (+5 XP)
-- [ ] Chapter 7: Real-World Coding Tasks (+5 XP)
+- [x] Chapter 1: Command-Line Flags Deep Dive (+5 XP)
+- [x] Chapter 2: Print Mode Mastery (+5 XP)
+- [x] Chapter 3: Working with Files (+5 XP)
+- [x] Chapter 4: The Dangerous Flag (+5 XP)
+- [ ] Chapter 4.5: Understanding the Permission System (+5 XP)
+- [x] Chapter 5: Combining Flags (+5 XP)
+- [x] Chapter 6: Effective Prompting (+5 XP)
+- [x] Chapter 7: Real-World Coding Tasks (+5 XP)
 
-**Chapter XP: ___ / 35**
+**Chapter XP: ___ / 40**
 
 
 ### Exercises
 
-- [ ] Exercise 2.1: Flag Exploration (+10 XP)
-- [ ] Exercise 2.2: Print Mode Workout (+10 XP)
-- [ ] Exercise 2.3: File Interaction (+15 XP)
-- [ ] Exercise 2.4: Flag Combinations (+15 XP)
-- [ ] Exercise 2.5: Prompt Crafting (+15 XP)
+- [x] Exercise 2.1: Flag Exploration (+10 XP)
+- [x] Exercise 2.2: Print Mode Workout (+10 XP)
+- [x] Exercise 2.3: File Interaction (+15 XP)
+- [x] Exercise 2.4: Flag Combinations (+15 XP)
+- [x] Exercise 2.5: Prompt Crafting (+15 XP)
 
 **Exercise XP: ___ / 65**
 
@@ -208,17 +209,18 @@ Fill this out when you begin:
 
 ### Achievements
 
-- [ ] Flag Bearer (+5 XP)
-- [ ] File Whisperer (+5 XP)
-- [ ] Danger Zone Awareness (+5 XP)
-- [ ] Prompt Architect (+5 XP)
+- [x] Flag Bearer (+5 XP)
+- [x] File Whisperer (+5 XP)
+- [x] Danger Zone Awareness (+5 XP)
+- [ ] Security Conscious (+5 XP)
+- [x] Prompt Architect (+5 XP)
 - [ ] Apprentice Graduate (+5 XP)
 
-**Achievement XP: ___ / 25**
+**Achievement XP: ___ / 30**
 
 ```
 +------------------------------------+
-|  LEVEL 2 TOTAL: ___ / 200 XP       |
+|  LEVEL 2 TOTAL: ___ / 210 XP       |
 |  Date Completed: ________________  |
 +------------------------------------+
 ```
@@ -237,8 +239,12 @@ Fill this out when you begin:
 - [ ] Chapter 5: Multi-Step Task Management (+5 XP)
 - [ ] Chapter 6: Integration with Dev Tools (+5 XP)
 - [ ] Chapter 7: Efficiency Techniques (+5 XP)
+- [ ] Chapter 8: Memory and Conversation Persistence (+5 XP)
+- [ ] Chapter 9: Vision and Image Capabilities (+5 XP)
+- [ ] Chapter 10: Cost Management and Optimization (+5 XP)
+- [ ] Chapter 11: Advanced GitHub Integration (+5 XP)
 
-**Chapter XP: ___ / 35**
+**Chapter XP: ___ / 55**
 
 
 ### Exercises
@@ -272,13 +278,17 @@ Fill this out when you begin:
 - [ ] Configuration Master (+5 XP)
 - [ ] Task Commander (+5 XP)
 - [ ] Efficiency Expert (+5 XP)
+- [ ] Memory Master (+5 XP)
+- [ ] Visual Thinker (+10 XP)
+- [ ] Budget Conscious (+5 XP)
+- [ ] Git Master (+10 XP)
 - [ ] Journeyman Complete (+5 XP)
 
-**Achievement XP: ___ / 25**
+**Achievement XP: ___ / 55**
 
 ```
 +------------------------------------+
-|  LEVEL 3 TOTAL: ___ / 220 XP       |
+|  LEVEL 3 TOTAL: ___ / 270 XP       |
 |  Date Completed: ________________  |
 +------------------------------------+
 ```
@@ -297,8 +307,14 @@ Fill this out when you begin:
 - [ ] Chapter 5: Advanced Prompting Techniques (+5 XP)
 - [ ] Chapter 6: Troubleshooting and Edge Cases (+5 XP)
 - [ ] Chapter 7: Performance Optimization (+5 XP)
+- [ ] Chapter 8: Working with Agents (+5 XP)
+- [ ] Chapter 9: MCP (Model Context Protocol) (+5 XP)
+- [ ] Chapter 10: Extended Thinking Mode (+5 XP)
+- [ ] Chapter 11: Error Handling and Recovery (+5 XP)
+- [ ] Chapter 12: Jupyter/Notebook Integration (+5 XP)
+- [ ] Chapter 13: Hooks - Customizing Behavior (+5 XP)
 
-**Chapter XP: ___ / 35**
+**Chapter XP: ___ / 65**
 
 
 ### Exercises
@@ -333,13 +349,19 @@ Fill this out when you begin:
 - [ ] Automation Architect (+5 XP)
 - [ ] Prompt Wizard (+5 XP)
 - [ ] Troubleshooter (+5 XP)
+- [ ] Agent Commander (+10 XP)
+- [ ] Protocol Master (+15 XP)
+- [ ] Deep Thinker (+10 XP)
+- [ ] Error Handler (+10 XP)
+- [ ] Data Scientist (+10 XP)
+- [ ] Hook Master (+15 XP)
 - [ ] Expert Elite (+10 XP)
 
-**Achievement XP: ___ / 35**
+**Achievement XP: ___ / 105**
 
 ```
 +------------------------------------+
-|  LEVEL 4 TOTAL: ___ / 280 XP       |
+|  LEVEL 4 TOTAL: ___ / 380 XP       |
 |  Date Completed: ________________  |
 +------------------------------------+
 ```
@@ -356,8 +378,10 @@ Fill this out when you begin:
 - [ ] Chapter 3: Teaching Others (+5 XP)
 - [ ] Chapter 4: Pushing Boundaries (+5 XP)
 - [ ] Chapter 5: Creating Your Legacy (+5 XP)
+- [ ] Chapter 6: Multi-LLM Orchestration (+5 XP)
+- [ ] Chapter 7: Plugins - Packaging Extensions (+5 XP)
 
-**Chapter XP: ___ / 25**
+**Chapter XP: ___ / 35**
 
 
 ### Exercises
@@ -389,13 +413,15 @@ Fill this out when you begin:
 - [ ] Systems Architect (+10 XP)
 - [ ] Knowledge Sharer (+10 XP)
 - [ ] Boundary Pusher (+10 XP)
+- [ ] AI Polyglot (+15 XP)
+- [ ] Plugin Creator (+10 XP)
 - [ ] True Master (+25 XP)
 
-**Achievement XP: ___ / 65**
+**Achievement XP: ___ / 90**
 
 ```
 +------------------------------------+
-|  LEVEL 5 TOTAL: ___ / 325 XP       |
+|  LEVEL 5 TOTAL: ___ / 360 XP       |
 |  Date Completed: ________________  |
 +------------------------------------+
 ```

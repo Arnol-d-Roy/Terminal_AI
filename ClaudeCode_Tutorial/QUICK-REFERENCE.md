@@ -95,6 +95,12 @@
 |  /diff       Show file changes                                      |
 |  /model      Switch AI model                                        |
 |  /compact    Compress conversation context                          |
+|  /init       Initialize Claude Code in current directory            |
+|  /cost       Show token usage and estimated cost                    |
+|  /settings   View/modify configuration                              |
+|  /tasks      List background tasks (agents, shells)                 |
+|  /bugs       Report issues to Claude Code team                      |
+|  /version    Show Claude Code version info                          |
 +---------------------------------------------------------------------+
 ```
 

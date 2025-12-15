@@ -98,7 +98,7 @@ Shows your complete progress dashboard:
 +============================================================+
 |  Current Status:                                           |
 |    Level: 2 - Apprentice                                   |
-|    Total XP: 145 / 1125                                    |
+|    Total XP: 145 / 1355                                    |
 |    Completion: 12.9%                                       |
 |                                                            |
 |    Progress: [====------------------------------------]    |
@@ -173,7 +173,7 @@ ClaudeCode_Tutorial/
 |  Date Started: ____________                                |
 |                                                            |
 |  Current Level: 1 (Novice)                                 |
-|  Total XP: 0 / 1125                                        |
+|  Total XP: 0 / 1355                                        |
 |                                                            |
 |  Progress: [----------------------------------------] 0%   |
 |                                                            |

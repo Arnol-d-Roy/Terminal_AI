@@ -28,7 +28,7 @@ By the end of this level, you will:
 |  Prerequisites: Level 1-2      |
 |  (300+ XP)                     |
 |  Estimated Time: 2-3 hours     |
-|  XP Available: 220 XP          |
+|  XP Available: 270 XP          |
 +--------------------------------+
 ```
 
@@ -383,6 +383,184 @@ For long sessions, conversation context can get large. Compact it:
 
 This summarizes the conversation to free up context space.
 
+
+### Additional Slash Commands
+
+Beyond the essentials, more specialized commands:
+
+```
++-------------+-----------------------------------------------+
+| Command     | Description                                   |
++-------------+-----------------------------------------------+
+| /init       | Initialize Claude Code in current directory   |
+| /cost       | Show token usage and estimated cost           |
+| /settings   | View/modify configuration                     |
+| /tasks      | List background tasks (agents, shells)        |
+| /bugs       | Report issues to Claude Code team             |
+| /version    | Show Claude Code version info                 |
+| /add-dir    | Add additional directory to workspace         |
+| /rewind     | Rollback to previous checkpoint               |
++-------------+-----------------------------------------------+
+```
+
+
+### Using /add-dir
+
+Expand your workspace mid-session:
+
+```
+> /add-dir ../other-project
+
+# Claude now has access to both:
+  - Current project
+  - ../other-project
+
+Use cases:
+  - Multi-repository workflows
+  - Shared libraries
+  - Related microservices
+```
+
+
+### Using /rewind
+
+Quickly undo changes (or press ESC ESC):
+
+```
+> /rewind
+
+✓ Restored to previous checkpoint
+  Files reverted: 3
+  Changes undone: 12
+```
+
+
+### Using /init
+
+Set up Claude Code for a new project:
+
+```
+> /init
+
+Creates:
+  - .claude/ directory
+  - CLAUDE.md template
+  - .gitignore entries
+  - Project configuration
+```
+
+
+### Using /cost
+
+Track your spending:
+
+```
+> /cost
+
+Output:
+  Session Tokens: 12,450
+  Estimated Cost: $0.037
+  Model: claude-sonnet-4
+
+  Breakdown:
+    Input tokens:  8,200 ($0.024)
+    Output tokens: 4,250 ($0.013)
+```
+
+
+### Using /tasks
+
+Monitor background operations:
+
+```
+> /tasks
+
+Active Tasks:
+  [1] Agent: Explore codebase (running, 45s)
+  [2] Shell: npm install (running, 12s)
+  [3] Agent: Security audit (completed)
+
+Commands:
+  /tasks kill 1    - Stop task #1
+  /tasks output 3  - View task #3 output
+```
+
+
+### Using /settings
+
+Configure Claude Code behavior:
+
+```
+> /settings
+
+Shows current settings:
+  Model: claude-sonnet-4
+  Max Tokens: 4096
+  Temperature: 0.7
+
+Change settings:
+  /settings model opus
+  /settings max_tokens 8192
+```
+
+
+### Custom Slash Commands
+
+Create your own commands in `.claude/commands/`:
+
+```bash
+# .claude/commands/review.md
+Review the current PR for:
+- Security issues
+- Performance problems
+- Code style violations
+- Missing tests
+
+Provide a detailed report.
+```
+
+Usage:
+```
+> /review
+
+# Claude executes the prompt from review.md
+```
+
+
+### Slash Command Best Practices
+
+```
++-----------------------------------------------------------+
+| DO's                            | DON'Ts                  |
++---------------------------------+-------------------------+
+| ✓ Use /diff before accepting    | ✗ Skip /diff for big    |
+|   major changes                 |   changes               |
+| ✓ Use /compact in long sessions | ✗ Let context fill up   |
+| ✓ Use /undo for mistakes        | ✗ Manually revert files |
+| ✓ Check /cost periodically      | ✗ Ignore token usage    |
+| ✓ Create custom commands for    | ✗ Repeat same prompts   |
+|   repeated tasks                |   manually              |
++---------------------------------+-------------------------+
+```
+
+
+### Advanced: Slash Command Chaining
+
+Some workflows benefit from command sequences:
+
+```bash
+# In .claude/commands/deploy-check.md
+Run these checks before deployment:
+
+1. /diff - Show all changes
+2. Run test suite
+3. Check for TODOs
+4. Verify environment configs
+5. /cost - Confirm token usage is reasonable
+
+Generate deployment checklist.
+```
+
 ----------------------------------------------------------------------
 
 
@@ -678,6 +856,931 @@ Let's start by [first task]."
 ----------------------------------------------------------------------
 
 
+## Chapter 8: Memory and Conversation Persistence
+
+### How Claude Code Remembers
+
+Understanding conversation memory helps you work more effectively:
+
+```
++--------------------------------------------------------------+
+|  CONVERSATION LIFECYCLE                                       |
+|--------------------------------------------------------------|
+|                                                              |
+|  Start Session  -->  Conversation  -->  Exit Session         |
+|                          |                    |              |
+|                          v                    v              |
+|                    Memory Buffer        Save to Disk         |
+|                                                              |
+|  Resume (-r)  <--  Load from Disk                            |
+|                                                              |
++--------------------------------------------------------------+
+```
+
+
+### Where Conversations Are Stored
+
+```bash
+# Conversation storage location
+~/.config/claude-code/conversations/
+
+# Each session gets a unique file
+~/.config/claude-code/conversations/session-2025-01-15-143022.json
+```
+
+
+### Conversation File Structure
+
+```json
+{
+  "session_id": "abc123",
+  "created_at": "2025-01-15T14:30:22Z",
+  "model": "claude-sonnet-4",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Help me debug this function",
+      "timestamp": "2025-01-15T14:30:25Z"
+    },
+    {
+      "role": "assistant",
+      "content": "I'll analyze that function...",
+      "timestamp": "2025-01-15T14:30:28Z"
+    }
+  ],
+  "context": {
+    "files_accessed": ["src/main.py", "tests/test_main.py"],
+    "working_directory": "/home/user/project"
+  }
+}
+```
+
+
+### Managing Multiple Conversations
+
+Different strategies for different projects:
+
+```
+Strategy 1: One Conversation Per Project
+  /project-a --> conversation-a.json
+  /project-b --> conversation-b.json
+
+Strategy 2: One Conversation Per Feature
+  Feature branch --> New conversation
+  Merge complete --> Archive conversation
+
+Strategy 3: Daily Conversations
+  Monday --> conversation-monday.json
+  Tuesday --> conversation-tuesday.json
+```
+
+
+### Resume Behavior
+
+What happens when you resume:
+
+```bash
+claude -r
+
+# Claude loads:
+  ✓ Previous conversation history
+  ✓ Files that were accessed
+  ✓ Context about the project
+  ✓ Your preferences from session
+
+# Claude does NOT load:
+  ✗ Files that have changed since
+  ✗ New files created
+  ✗ External state changes
+```
+
+
+### Memory Limits and Context Windows
+
+Understanding limits helps you work within them:
+
+```
++----------------------------------+
+| Model Context Limits              |
++----------------------------------+
+| Claude Sonnet: ~200K tokens      |
+| Claude Opus:   ~200K tokens      |
+| Claude Haiku:  ~200K tokens      |
++----------------------------------+
+
+Typical conversation:
+  - 100 messages: ~50K tokens
+  - Large codebase context: ~100K tokens
+  - Room for responses: ~50K tokens
+```
+
+
+### When to Use /compact
+
+Compact when:
+
+```
+✓ Long session (100+ exchanges)
+✓ Context feels "full" (slower responses)
+✓ Working on new subtask
+✓ Want to "reset" focus
+
+Example:
+  > We've discussed authentication for 50 messages.
+  > Let's /compact and move to the payment system.
+```
+
+
+### Clearing vs Compacting
+
+```
++---------------------+--------------------+-------------------+
+| Action              | What Happens       | When to Use       |
++---------------------+--------------------+-------------------+
+| /clear              | Delete all history | Fresh start       |
+|                     | Lose all context   | New topic         |
+|                     |                    | Privacy concern   |
++---------------------+--------------------+-------------------+
+| /compact            | Summarize history  | Long session      |
+|                     | Keep key context   | Reduce tokens     |
+|                     | Continue working   | Stay on topic     |
++---------------------+--------------------+-------------------+
+```
+
+
+### Privacy Considerations
+
+Your conversations contain sensitive information:
+
+```
+Conversations Include:
+  - Code snippets
+  - File paths
+  - Project structure
+  - API keys (if mentioned)
+  - Business logic
+  - Error messages
+
+Best Practices:
+  ✓ Don't share API keys in conversations
+  ✓ Use environment variables for secrets
+  ✓ Be mindful in shared environments
+  ✓ Clear sensitive conversations when done
+```
+
+
+### Archiving Conversations
+
+For long-term reference:
+
+```bash
+# Export a conversation
+claude --export-session session-abc123 > project-notes.md
+
+# Archive old conversations
+mv ~/.config/claude-code/conversations/old-* ~/claude-archives/
+
+# Search archived conversations
+grep -r "authentication" ~/claude-archives/
+```
+
+
+### Cross-Project Context
+
+Carry insights between projects:
+
+```
+Pattern: Start new session with context from old one
+
+Session A (Project 1):
+  > How should I structure API error handling?
+  [Good discussion and solution]
+
+Session B (Project 2):
+  > I previously learned a good pattern for API error handling.
+  > Apply that pattern to this new project.
+  [Claude uses general knowledge from training, not Session A]
+
+Note: Claude doesn't access old sessions, but you can
+      reference patterns you learned.
+```
+
+
+### Checkpoints and Rewind
+
+Claude Code automatically saves your code state before each change:
+
+```
++--------------------------------------------------------------+
+|  CHECKPOINT SYSTEM                                            |
+|--------------------------------------------------------------|
+|                                                              |
+|  Before edit  -->  Checkpoint saved  -->  Edit applied       |
+|                           |                                  |
+|                           v                                  |
+|                    Rewind available                          |
+|                                                              |
++--------------------------------------------------------------+
+```
+
+
+#### Using /rewind
+
+Instantly rollback changes:
+
+```bash
+> /rewind
+
+# Or press Esc twice
+ESC ESC
+
+# Claude shows:
+⏪ Rewinding to previous checkpoint...
+✓ Restored: src/main.py (2 changes reverted)
+```
+
+
+#### Why Checkpoints Matter
+
+```
+Without Checkpoints:
+  "Undo that last change..."
+  "Wait, undo the one before that too..."
+  "Actually, go back 5 changes..."
+  😰 Manual tracking, error-prone
+
+With Checkpoints:
+  ESC ESC
+  ✅ Instant rewind, always safe to experiment
+```
+
+
+### Context Filtering with .claudeignore
+
+Exclude files from Claude's context to improve performance:
+
+```bash
+# Create .claudeignore in project root
+touch .claudeignore
+```
+
+
+#### Example .claudeignore
+
+```
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+
+# Build artifacts
+dist/
+build/
+*.pyc
+*.o
+
+# Large data files
+*.csv
+*.db
+data/
+
+# Sensitive files
+.env
+secrets/
+*.key
+
+# Generated files
+coverage/
+.next/
+```
+
+
+#### Why Use .claudeignore
+
+```
++----------------------------------+
+| Benefits of .claudeignore         |
++----------------------------------+
+| ✓ Faster context loading         |
+| ✓ Reduced token usage            |
+| ✓ Better performance             |
+| ✓ Privacy protection             |
+| ✓ Focus on relevant code         |
++----------------------------------+
+
+Example Impact:
+  Before: 500K tokens (with node_modules)
+  After:   50K tokens (with .claudeignore)
+  Savings: 90% reduction!
+```
+
+
+#### Syntax
+
+```
+# Patterns work like .gitignore:
+
+# Ignore directory
+logs/
+
+# Ignore file type
+*.log
+
+# Ignore specific file
+config/production.json
+
+# Negative pattern (don't ignore)
+!important.log
+
+# Ignore everywhere
+**/*.test.js
+```
+
+
+#### Team .claudeignore
+
+Commit to version control for team consistency:
+
+```bash
+# .claudeignore
+# Generated by team for Claude Code optimization
+
+# Large dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+target/
+
+# Test coverage
+coverage/
+.nyc_output/
+```
+
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Memory Master (+5 XP)   |
++----------------------------------------------------+
+```
+
+----------------------------------------------------------------------
+
+
+## Chapter 9: Vision and Image Capabilities
+
+### Claude Code Can See
+
+Claude Code's vision capabilities enable visual debugging and design
+review:
+
+```
++--------------------------------------------------------------+
+|  VISUAL CAPABILITIES                                          |
+|--------------------------------------------------------------|
+|                                                              |
+|  ✓ Screenshots                                               |
+|  ✓ UI mockups                                                |
+|  ✓ Diagrams and flowcharts                                   |
+|  ✓ Error message screenshots                                 |
+|  ✓ Design files (exported as images)                         |
+|  ✓ Data visualizations                                       |
+|                                                              |
++--------------------------------------------------------------+
+```
+
+
+### Sharing Images with Claude
+
+Multiple methods:
+
+```bash
+# Method 1: Direct path (if supported)
+claude
+> Analyze this screenshot: ~/Desktop/error-screenshot.png
+
+# Method 2: Drag and drop (in supported terminals)
+claude
+> [Drag image into terminal]
+> What's wrong with this UI?
+
+# Method 3: Base64 encoding (universal)
+base64 screenshot.png | claude -p "Analyze this image"
+```
+
+
+### Use Case 1: Visual Debugging
+
+```
+Scenario: Application crashes with visual error
+
+You:
+  1. Take screenshot of error
+  2. Share with Claude
+  3. Ask for analysis
+
+Claude analyzes:
+  - Error message text
+  - Stack trace
+  - UI state
+  - Visual indicators
+```
+
+
+### Use Case 2: UI/UX Review
+
+```bash
+claude
+> Review this UI screenshot: app-mockup.png
+>
+> Check for:
+> - Layout issues
+> - Accessibility concerns
+> - Alignment problems
+> - Color contrast
+> - Usability issues
+
+Claude provides:
+  - Visual feedback
+  - Specific suggestions
+  - Accessibility notes
+  - Design improvements
+```
+
+
+### Use Case 3: Diagram Analysis
+
+```
+You: [Share flowchart image]
+> Convert this flowchart into Python code
+
+Claude:
+  1. Analyzes diagram structure
+  2. Identifies logic flow
+  3. Generates corresponding code
+  4. Explains the translation
+```
+
+
+### Use Case 4: Design Implementation
+
+```
+Workflow:
+  1. Designer sends mockup (PNG/JPG)
+  2. You share with Claude
+  3. "Implement this design in React/HTML/CSS"
+
+Claude:
+  - Identifies layout structure
+  - Suggests component breakdown
+  - Generates code matching design
+  - Notes design details (colors, spacing, fonts)
+```
+
+
+### Use Case 5: Documentation
+
+```bash
+> I have this architecture diagram (diagram.png).
+> Create documentation explaining the system architecture.
+
+Claude:
+  - Describes components
+  - Explains relationships
+  - Documents data flow
+  - Generates markdown docs
+```
+
+
+### Limitations of Vision
+
+```
++---------------------------+---------------------------+
+| Can Do                    | Cannot Do                 |
++---------------------------+---------------------------+
+| Read text in images       | Edit images               |
+| Identify UI elements      | Create images from scratch|
+| Analyze layout            | Pixel-perfect measurements|
+| Detect colors             | Access image metadata     |
+| Recognize patterns        | Handle very large images  |
+| Understand diagrams       | Real-time video           |
++---------------------------+---------------------------+
+```
+
+
+### Best Practices for Visual Tasks
+
+```
++-----------------------------------------------------------+
+| DO's                            | DON'Ts                  |
++---------------------------------+-------------------------+
+| ✓ Use clear, high-res images    | ✗ Send blurry screenshots|
+| ✓ Crop to relevant area         | ✗ Include unnecessary    |
+|                                 |   parts                 |
+| ✓ Provide context with image    | ✗ Assume Claude knows    |
+|                                 |   full context          |
+| ✓ Ask specific questions        | ✗ Ask vague "what is     |
+|                                 |   this?" questions      |
+| ✓ Use for debugging visual      | ✗ Use for extracting     |
+|   issues                        |   large amounts of text |
++---------------------------------+-------------------------+
+```
+
+
+### Advanced: Multi-Image Analysis
+
+Compare designs or track changes:
+
+```bash
+> Compare these two screenshots:
+> - before.png (old design)
+> - after.png (new design)
+>
+> What changed? Is it an improvement?
+
+Claude analyzes:
+  - Visual differences
+  - Design improvements/regressions
+  - User experience impact
+```
+
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Visual Thinker (+10 XP) |
++----------------------------------------------------+
+```
+
+----------------------------------------------------------------------
+
+
+## Chapter 10: Cost Management and Optimization
+
+### Understanding Tokens and Costs
+
+Every Claude Code interaction has a cost:
+
+```
++--------------------------------------------------------------+
+|  TOKEN ECONOMICS                                              |
+|--------------------------------------------------------------|
+|                                                              |
+|  Your Input  -->  Tokenized  -->  Processed  -->  Response   |
+|  (Prompt)        (~1K tokens)    (Claude)      (~2K tokens)  |
+|                                                              |
+|  Total: ~3K tokens × $0.003/1K = $0.009 per exchange        |
+|                                                              |
++--------------------------------------------------------------+
+```
+
+
+### What Are Tokens?
+
+```
+Tokens are pieces of text:
+  - 1 word ≈ 1-2 tokens
+  - 100 words ≈ 75 tokens
+  - 1 line of code ≈ 5-15 tokens
+
+Examples:
+  "Hello" = 1 token
+  "Hello, world!" = 4 tokens
+  "function calculateTotal()" = 5 tokens
+```
+
+
+### Cost by Model
+
+```
++---------------+-------------+-------------+---------------+
+| Model         | Input ($/1M)| Output($/1M)| When to Use   |
++---------------+-------------+-------------+---------------+
+| Haiku         | $0.25       | $1.25       | Quick queries |
+| Sonnet        | $3.00       | $15.00      | General work  |
+| Opus          | $15.00      | $75.00      | Complex tasks |
++---------------+-------------+-------------+---------------+
+```
+
+
+### Estimating Session Costs
+
+```bash
+# Use /cost command
+> /cost
+
+Session Summary:
+  Input tokens:   15,420
+  Output tokens:   8,350
+  Total tokens:   23,770
+
+Cost breakdown (Sonnet):
+  Input:  15,420 × $3.00/1M  = $0.046
+  Output:  8,350 × $15.00/1M = $0.125
+  Total:                       $0.171
+```
+
+
+### Cost Optimization Strategies
+
+#### 1. Choose the Right Model
+
+```bash
+# Don't do this:
+claude --model opus -p "What's 2+2?"  # $$$
+
+# Do this:
+claude --model haiku -p "What's 2+2?" # $
+
+# Model selection guide:
+Quick questions     --> Haiku
+Standard coding     --> Sonnet
+Complex reasoning   --> Opus
+```
+
+
+#### 2. Be Concise in Prompts
+
+```
+Expensive:
+  "I was wondering if you could possibly help me understand
+   this concept if you have time and it wouldn't be too much
+   trouble to explain..."
+  (40 tokens)
+
+Cheap:
+  "Explain this concept concisely"
+  (5 tokens)
+```
+
+
+#### 3. Use Context Wisely
+
+```bash
+# Expensive: Re-sharing unchanged files
+> Here's the entire codebase again [100K tokens]
+> Now make a small change
+
+# Cheap: Reference already-shared files
+> Make that change to the file we discussed
+```
+
+
+#### 4. Compact Long Sessions
+
+```
+Session at 50K tokens:
+  - Each response costs more (context is reprocessed)
+  - Use /compact to reduce
+
+After /compact (10K tokens):
+  - Responses cost 80% less in input tokens
+  - Keep working efficiently
+```
+
+
+### Tracking Usage
+
+```bash
+# Method 1: Built-in tracking
+> /cost
+
+# Method 2: Export usage logs
+claude --usage-report > usage.csv
+
+# Method 3: Environment variable logging
+export CLAUDE_LOG_USAGE=true
+```
+
+
+### Setting Budget Limits
+
+```bash
+# Set monthly budget alert
+export CLAUDE_BUDGET_LIMIT=50.00  # $50/month
+
+# Claude warns you:
+"⚠️  Budget: $45/$50 used this month"
+```
+
+
+### Cost-Effective Workflows
+
+#### Pattern 1: Haiku for Exploration, Sonnet for Implementation
+
+```bash
+# Phase 1: Explore with Haiku (cheap)
+claude --model haiku -p "List all API endpoints in this project"
+
+# Phase 2: Implement with Sonnet (when you know what to do)
+claude --model sonnet
+> Implement the user authentication endpoint
+```
+
+
+#### Pattern 2: Batch Questions
+
+```bash
+# Expensive: Multiple sessions
+Session 1: "How does auth work?"
+Session 2: "How does DB work?"
+Session 3: "How does API work?"
+
+# Cheap: One session
+Session 1:
+  "Explain:
+   1. How auth works
+   2. How DB works
+   3. How API works"
+```
+
+
+### Hidden Costs
+
+Be aware of:
+
+```
++----------------------------------+
+| What Increases Costs              |
++----------------------------------+
+| ✗ Very long conversations        |
+| ✗ Sharing entire large files     |
+| ✗ Repeating context              |
+| ✗ Using Opus for simple tasks    |
+| ✗ Not using /compact             |
++----------------------------------+
+```
+
+
+### ROI Calculation
+
+Is Claude Code worth it?
+
+```
+Monthly Cost: $30-100 (typical developer)
+
+Value Provided:
+  - 2 hours saved per week = 8 hours/month
+  - At $50/hour = $400/month value
+  - ROI: 400% to 1,300%
+
+Cost per task:
+  - Simple query: $0.01
+  - Code generation: $0.10
+  - Full feature: $1.00
+```
+
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Budget Conscious (+5 XP)|
++----------------------------------------------------+
+```
+
+----------------------------------------------------------------------
+
+
+## Chapter 11: Advanced GitHub Integration
+
+### GitHub CLI (gh) Integration
+
+Claude Code works seamlessly with GitHub's CLI:
+
+```bash
+# Check if gh is installed
+which gh
+
+# If not, install it
+# (instructions at cli.github.com)
+```
+
+
+### Use Case 1: PR Creation
+
+```bash
+claude
+> Create a PR for my current branch
+
+# Claude:
+1. Analyzes your changes (git diff)
+2. Generates PR title and description
+3. Runs: gh pr create --title "..." --body "..."
+```
+
+
+### Use Case 2: PR Review
+
+```bash
+# Review a pull request
+claude
+> Review PR #234
+
+# Claude:
+1. Fetches PR: gh pr view 234
+2. Analyzes code changes
+3. Provides detailed review
+4. Suggests improvements
+```
+
+
+### Use Case 3: Issue Management
+
+```bash
+> List open issues related to authentication
+
+# Claude runs:
+gh issue list --label auth --state open
+
+> Create an issue for the bug I just found
+
+# Claude creates issue with:
+  - Descriptive title
+  - Reproduction steps
+  - Relevant code snippets
+  - Labels
+```
+
+
+### Advanced Git Workflows
+
+#### Workflow 1: Feature Branch Management
+
+```
+Complete workflow:
+  1. Create feature branch
+  2. Implement feature with Claude
+  3. Have Claude write tests
+  4. Claude reviews changes (git diff)
+  5. Claude generates commit message
+  6. Push and create PR
+  7. Claude analyzes PR checks
+```
+
+
+#### Workflow 2: Code Review Assistance
+
+```bash
+# Get Claude's review before requesting human review
+> Review my changes before I create PR
+
+Claude checks:
+  - Code quality
+  - Security issues
+  - Test coverage
+  - Documentation
+  - Commit message quality
+```
+
+
+#### Workflow 3: Rebase Interactive
+
+```bash
+> Help me clean up my commit history
+
+# Claude suggests:
+1. Which commits to squash
+2. Improved commit messages
+3. Logical grouping of changes
+
+# Then guides you through:
+git rebase -i HEAD~5
+```
+
+
+### GitHub Actions Integration
+
+```bash
+> Check why the CI pipeline failed
+
+# Claude:
+1. Runs: gh run list --limit 1
+2. Gets failure details
+3. Analyzes error logs
+4. Suggests fixes
+```
+
+
+### Best Practices
+
+```
++-----------------------------------------------------------+
+| DO's                            | DON'Ts                  |
++---------------------------------+-------------------------+
+| ✓ Let Claude analyze diffs      | ✗ Create PRs without    |
+|   before committing             |   review                |
+| ✓ Use Claude for commit msgs    | ✗ Commit secrets to Git |
+| ✓ Review PR checks with Claude  | ✗ Force push to main    |
+| ✓ Have Claude check for         | ✗ Skip CI checks        |
+|   sensitive data                |                         |
++---------------------------------+-------------------------+
+```
+
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Git Master (+10 XP)     |
++----------------------------------------------------+
+```
+
+----------------------------------------------------------------------
+
+
 ## Level 3 Challenge: The Workflow Warrior
 
 ```
@@ -851,13 +1954,13 @@ Complete a full development cycle using Claude Code at every stage:
 +----------------------------------+---------+
 | Item                             | XP      |
 +----------------------------------+---------+
-| Reading Chapters (7 x 5 XP)      | 35      |
+| Reading Chapters (11 x 5 XP)     | 55      |
 | Exercises (5 total)              | 80      |
 | Challenge                        | 30      |
 | Boss Battle                      | 50      |
-| Achievements (5 x 5 XP)          | 25      |
+| Achievements (9 total)           | 55      |
 +----------------------------------+---------+
-| MAXIMUM AVAILABLE                | 220     |
+| MAXIMUM AVAILABLE                | 270     |
 | Required for Level 4             | 600     |
 +----------------------------------+---------+
 ```
@@ -873,7 +1976,7 @@ you're ready!
 ```
 +============================================================+
 |  Level 3 Complete!                                         |
-|  Level 3 XP Earned: ___ / 220 possible                     |
+|  Level 3 XP Earned: ___ / 270 possible                     |
 |  New Total: ___ XP                                         |
 |                                                            |
 |  [==========] EXPERT TRAINING BEGINS!                      |

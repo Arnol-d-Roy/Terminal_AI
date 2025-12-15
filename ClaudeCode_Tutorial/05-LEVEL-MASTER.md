@@ -29,7 +29,7 @@ isn't about learning new commands - it's about:
 |  Prerequisites: Level 1-4      |
 |  (1000+ XP)                    |
 |  Estimated Time: Ongoing       |
-|  XP Available: Unlimited       |
+|  XP Available: 345 XP       |
 +--------------------------------+
 ```
 
@@ -534,6 +534,536 @@ Portfolio Items:
 ----------------------------------------------------------------------
 
 
+## Chapter 6: Multi-LLM Orchestration
+
+### Beyond Single-AI Workflows
+
+True mastery means knowing when to use different AI models and
+how to orchestrate them together for optimal results.
+
+```
+ ______________________________________________________________________
+|                                                                      |
+|   THE AI TOOLKIT                                                    |
+|                                                                      |
+|   Claude Code (Anthropic)  -->  Complex reasoning, code generation  |
+|   Gemini (Google)          -->  Fast responses, web search          |
+|   GPT (OpenAI)             -->  Creative tasks, writing             |
+|   Local Models             -->  Privacy, no API costs               |
+|                                                                      |
+|______________________________________________________________________|
+```
+
+
+### Why Use Multiple LLMs?
+
+Different models have different strengths:
+
+```
++-------------------------------------------------------------+
+| Model          | Best For                | When to Use      |
++----------------+-------------------------+------------------+
+| Claude Code    | Code understanding      | Complex dev work |
+|                | Deep reasoning          | Architecture     |
+|                | Long context            | Large codebases  |
++----------------+-------------------------+------------------+
+| Gemini         | Speed                   | Quick queries    |
+|                | Web integration         | Research tasks   |
+|                | Cost efficiency         | High volume      |
++----------------+-------------------------+------------------+
+| GPT            | Creative writing        | Documentation    |
+|                | Diverse knowledge       | Brainstorming    |
+|                | Plugin ecosystem        | Integrations     |
++----------------+-------------------------+------------------+
+| Local Models   | Privacy                 | Sensitive data   |
+|                | No cost                 | Offline work     |
+|                | Customization           | Specialized needs|
++----------------+-------------------------+------------------+
+```
+
+
+### Setting Up Multiple LLMs
+
+Based on your parent README, you have access to both Claude and
+Gemini CLIs:
+
+```bash
+# Check what's available
+which claude    # Claude Code CLI
+which gemini    # Gemini CLI
+
+# Test each
+claude -p "Hello from Claude"
+gemini -p "Hello from Gemini"
+```
+
+
+### Multi-LLM Workflow Patterns
+
+#### Pattern 1: Task Delegation
+
+Use the right tool for each task:
+
+```bash
+# Complex code analysis --> Claude
+claude
+> Analyze this Python codebase for architectural issues
+
+# Quick syntax check --> Gemini
+gemini -p "What's the correct Python syntax for list comprehension?"
+
+# Creative naming --> GPT
+gpt -p "Suggest 10 creative names for this API endpoint"
+```
+
+
+#### Pattern 2: Comparison and Verification
+
+Get multiple perspectives on critical decisions:
+
+```bash
+# Architecture decision
+echo "Should I use microservices or monolith for this project?" > question.txt
+
+claude -p "$(cat question.txt)" > claude_answer.txt
+gemini -p "$(cat question.txt)" > gemini_answer.txt
+
+# Compare answers
+diff claude_answer.txt gemini_answer.txt
+```
+
+
+#### Pattern 3: Pipeline Chaining
+
+Use models in sequence:
+
+```bash
+# Step 1: Gemini generates ideas (fast)
+gemini -p "Generate 5 feature ideas for a todo app" > ideas.txt
+
+# Step 2: Claude evaluates (thorough)
+claude -p "Review these feature ideas for feasibility: $(cat ideas.txt)" > evaluation.txt
+
+# Step 3: GPT writes docs (creative)
+gpt -p "Write user-facing documentation for: $(cat evaluation.txt)"
+```
+
+
+#### Pattern 4: Cost Optimization
+
+Use expensive models sparingly:
+
+```bash
+# Strategy:
+# - Use Gemini/Haiku for exploration
+# - Use Claude/Opus for final decisions
+
+# Exploration phase (cheap)
+for file in src/*.py; do
+  gemini -p "Quick summary of $file" >> summary.txt
+done
+
+# Decision phase (expensive but thorough)
+claude --model opus -p "Based on these summaries, what should we refactor: $(cat summary.txt)"
+```
+
+
+### Pipe-Based LLM Orchestration
+
+The ultimate power move - chain LLMs with pipes:
+
+```bash
+# Generate idea with Gemini, refine with Claude
+gemini -p "Quick algorithm idea for sorting a list" | \
+claude -p "Refine this algorithm and write Python implementation"
+
+# Claude writes code, Gemini checks for issues
+claude -p "Write a FastAPI endpoint for user login" | \
+gemini -p "Review this code for security issues"
+
+# Multi-stage pipeline
+echo "Build a REST API for a blog" | \
+gemini -p "Create API specification" | \
+claude -p "Implement this spec in Python" | \
+gpt -p "Write comprehensive documentation for this API"
+```
+
+
+### Real-World Multi-LLM Scenarios
+
+#### Scenario 1: Code Review Pipeline
+
+```bash
+# Stage 1: Fast initial scan (Gemini)
+gemini -p "Quick review of PR #123 for obvious issues" > initial_review.txt
+
+# Stage 2: Deep analysis (Claude)
+if grep -q "ISSUE" initial_review.txt; then
+  claude -p "Detailed security and architecture review of PR #123" > detailed_review.txt
+fi
+
+# Stage 3: Generate feedback (GPT)
+gpt -p "Convert this technical review into friendly PR comments: $(cat detailed_review.txt)"
+```
+
+
+#### Scenario 2: Documentation Generation
+
+```bash
+# Claude understands the code
+claude -p "Explain this codebase architecture" > architecture.md
+
+# GPT makes it readable
+gpt -p "Rewrite this technical doc for non-technical stakeholders: $(cat architecture.md)" > architecture_simple.md
+
+# Gemini adds examples
+gemini -p "Add 3 concrete examples to this doc: $(cat architecture_simple.md)" > architecture_final.md
+```
+
+
+#### Scenario 3: Debugging Strategy
+
+```bash
+# 1. Gemini for quick triage (fast)
+gemini -p "What could cause this error: $ERROR_MESSAGE" > triage.txt
+
+# 2. Claude for deep dive (thorough) - only if needed
+if grep -q "complex" triage.txt; then
+  claude -p "Comprehensive analysis of: $ERROR_MESSAGE in context of: $(cat relevant_code.py)"
+fi
+```
+
+
+### Model Selection Decision Tree
+
+```
+                    START
+                      |
+                      v
+            +---------+----------+
+            | Need to reason     |
+            | about code?        |
+            +----+----------+----+
+                 |          |
+            YES  |          | NO
+                 v          v
+            +---------+ +---------+
+            | Claude  | | Gemini/ |
+            |  Code   | |   GPT   |
+            +---------+ +---------+
+                 |          |
+                 v          v
+            Complex?    Creative?
+                 |          |
+            YES  |          | YES
+                 v          v
+            +--------+  +--------+
+            | Opus   |  |  GPT   |
+            +--------+  +--------+
+                 |          |
+            NO   |     NO   |
+                 v          v
+            +--------+  +--------+
+            | Sonnet |  | Gemini |
+            +--------+  +--------+
+```
+
+
+### Building a Multi-LLM Function
+
+Create a smart wrapper that routes to the best model:
+
+```bash
+#!/bin/bash
+# smart-ai.sh - Route to the best AI for the job
+
+task_type="$1"
+shift
+prompt="$*"
+
+case "$task_type" in
+  code)
+    claude -p "$prompt"
+    ;;
+  quick)
+    gemini -p "$prompt"
+    ;;
+  creative)
+    gpt -p "$prompt"
+    ;;
+  compare)
+    echo "=== Claude ==="
+    claude -p "$prompt"
+    echo -e "\n=== Gemini ==="
+    gemini -p "$prompt"
+    ;;
+  pipeline)
+    gemini -p "$prompt" | claude -p "Refine and implement this:"
+    ;;
+  *)
+    echo "Usage: smart-ai.sh {code|quick|creative|compare|pipeline} \"prompt\""
+    ;;
+esac
+```
+
+Usage:
+```bash
+./smart-ai.sh code "Review this function for bugs"
+./smart-ai.sh quick "What's the Python syntax for decorators?"
+./smart-ai.sh creative "Name this feature"
+./smart-ai.sh compare "Should I use Redis or Memcached?"
+./smart-ai.sh pipeline "Design a caching system"
+```
+
+
+### Multi-LLM Best Practices
+
+```
++------------------------------------------------------------+
+| DO's                            | DON'Ts                   |
++---------------------------------+--------------------------+
+| ✓ Use fast models for           | ✗ Use expensive models   |
+|   exploration                   |   for simple tasks       |
+| ✓ Verify critical decisions     | ✗ Trust a single AI      |
+|   with multiple models          |   for important choices  |
+| ✓ Chain models for complex      | ✗ Blindly pipe without   |
+|   workflows                     |   validation             |
+| ✓ Track costs across models     | ✗ Forget about rate      |
+|                                 |   limits                 |
+| ✓ Automate model selection      | ✗ Manually choose every  |
+|   when possible                 |   time                   |
++---------------------------------+--------------------------+
+```
+
+
+### Cost Comparison
+
+Understanding relative costs:
+
+```
+Approximate Costs (per 1M tokens):
+--------------------------------------
+Claude Haiku:     ~$0.25  (cheapest)
+Gemini Flash:     ~$0.30
+Claude Sonnet:    ~$3.00
+GPT-4:            ~$10.00
+Claude Opus:      ~$15.00 (most powerful)
+
+Strategy: Use cheaper models for bulk operations,
+          expensive models for critical decisions
+```
+
+
+### Advanced: Consensus Mechanisms
+
+For critical decisions, use voting:
+
+```bash
+#!/bin/bash
+# consensus.sh - Get agreement from multiple AIs
+
+prompt="$1"
+
+# Get responses
+claude_vote=$(claude -p "$prompt" | grep -o "YES\|NO" | head -1)
+gemini_vote=$(gemini -p "$prompt" | grep -o "YES\|NO" | head -1)
+gpt_vote=$(gpt -p "$prompt" | grep -o "YES\|NO" | head -1)
+
+# Count votes
+yes_count=$(echo "$claude_vote $gemini_vote $gpt_vote" | grep -o "YES" | wc -l)
+
+if [ $yes_count -ge 2 ]; then
+  echo "CONSENSUS: YES (${yes_count}/3 agree)"
+else
+  echo "CONSENSUS: NO (${yes_count}/3 agree)"
+fi
+```
+
+
+### The AI Polyglot Advantage
+
+Mastering multiple AIs gives you:
+
+  * **Flexibility** - Right tool for every task
+  * **Reliability** - Fallback options
+  * **Cost Control** - Optimize spending
+  * **Speed** - Fast models when appropriate
+  * **Quality** - Best model for critical work
+  * **Verification** - Cross-check important decisions
+
+
+### Real-World Integration Example
+
+Complete workflow combining Claude and Gemini:
+
+```bash
+#!/bin/bash
+# daily-dev-workflow.sh
+
+# Morning standup preparation (fast)
+echo "== What did I work on yesterday? =="
+gemini -p "Summarize git commits from yesterday: $(git log --since='yesterday' --oneline)"
+
+# Code review (thorough)
+echo -e "\n== Review PR =="
+claude -p "Review PR #$(gh pr list --limit 1 --json number -q '.[0].number') for security and architecture"
+
+# Quick questions throughout day (cheap)
+alias ask='gemini -p'
+
+# End of day documentation (creative)
+echo -e "\n== Daily Summary =="
+git log --since='today' --oneline | gpt -p "Write a friendly end-of-day summary from these commits"
+```
+
+
+### Monitoring and Optimization
+
+Track which model you use most:
+
+```bash
+# Add to .bashrc
+claude() {
+  echo "$(date): claude $*" >> ~/.ai-usage.log
+  command claude "$@"
+}
+
+gemini() {
+  echo "$(date): gemini $*" >> ~/.ai-usage.log
+  command gemini "$@"
+}
+
+# Review usage
+alias ai-stats='cut -d: -f2 ~/.ai-usage.log | cut -d" " -f2 | sort | uniq -c | sort -rn'
+```
+
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: AI Polyglot (+15 XP)    |
++----------------------------------------------------+
+```
+
+----------------------------------------------------------------------
+
+
+## Chapter 7: Plugins - Packaging Claude Code Extensions
+
+### What Are Plugins?
+
+Plugins are **custom collections** of slash commands, agents, MCP
+servers, and hooks that install with a single command.
+
+```
++--------------------------------------------------------------+
+|  PLUGIN = Slash Commands + Agents + MCP Servers + Hooks     |
+|--------------------------------------------------------------|
+|  Install once, get full custom workflow                      |
++--------------------------------------------------------------+
+```
+
+
+### Why Plugins?
+
+```
+Without Plugins:
+  1. Install MCP server manually
+  2. Configure hooks
+  3. Add slash commands
+  4. Set up agents
+  5. Repeat for each team member
+  😰 Time-consuming, error-prone
+
+With Plugins:
+  claude plugin install team-workflow
+  ✅ Everything configured instantly
+```
+
+
+### Installing Plugins
+
+```bash
+# Install from registry
+claude plugin install @company/dev-workflow
+
+# Install from GitHub
+claude plugin install github:username/claude-plugin-name
+
+# Install local plugin
+claude plugin install ./my-plugin
+```
+
+
+### Creating a Plugin
+
+Structure:
+
+```
+my-plugin/
+├── plugin.json          # Plugin manifest
+├── commands/            # Slash commands
+│   └── review.md
+├── hooks/              # Lifecycle hooks
+│   └── post-edit.sh
+├── mcp/                # MCP servers
+│   └── servers.json
+└── README.md
+```
+
+
+### Example plugin.json
+
+```json
+{
+  "name": "team-workflow",
+  "version": "1.0.0",
+  "description": "Our team's Claude Code workflow",
+  "commands": ["commands/*.md"],
+  "hooks": {
+    "postToolUse": "hooks/post-edit.sh"
+  },
+  "mcpServers": "mcp/servers.json"
+}
+```
+
+
+### Use Cases
+
+```
++---------------------+----------------------------------+
+| Plugin Type         | Contains                         |
++---------------------+----------------------------------+
+| Team Standards      | Hooks for linting, formatting    |
+| Language Support    | Commands for specific languages  |
+| Cloud Integration   | MCP servers for AWS/GCP/Azure    |
+| Security Suite      | Hooks for security scanning      |
+| Documentation       | Commands for doc generation      |
++---------------------+----------------------------------+
+```
+
+
+### Sharing Plugins
+
+```bash
+# Publish to registry
+claude plugin publish
+
+# Share via GitHub
+# Others install with:
+claude plugin install github:yourname/plugin-name
+
+# Or distribute as tarball
+tar -czf my-plugin.tar.gz my-plugin/
+```
+
+```
++----------------------------------------------------+
+|  >>> ACHIEVEMENT UNLOCKED: Plugin Creator (+10 XP) |
++----------------------------------------------------+
+```
+
+----------------------------------------------------------------------
+
+
 ## Level 5 Challenge: The Master's Thesis
 
 ```
@@ -841,12 +1371,12 @@ As a Claude Code Master, you embody these principles:
 | Level                            | Max XP  |
 +----------------------------------+---------+
 | Level 1: Novice                  | 170     |
-| Level 2: Apprentice              | 200     |
-| Level 3: Journeyman              | 220     |
-| Level 4: Expert                  | 280     |
-| Level 5: Master                  | 255+    |
+| Level 2: Apprentice              | 210     |
+| Level 3: Journeyman              | 270     |
+| Level 4: Expert                  | 360     |
+| Level 5: Master                  | 345     |
 +----------------------------------+---------+
-| TOTAL MAXIMUM                    | 1125+   |
+| TOTAL MAXIMUM                    | 1355    |
 +----------------------------------+---------+
 ```
 

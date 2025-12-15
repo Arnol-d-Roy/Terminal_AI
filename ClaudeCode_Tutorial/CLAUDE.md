@@ -54,6 +54,30 @@ This is a **complete, terminal-based, gamified tutorial system** for learning Cl
 - Updated all cross-references
 - Created comprehensive README.md as quick start guide
 
+### 6. Auto-Achievements & Color Coding
+- Implemented automatic achievement unlocking based on task completion criteria
+- Added color coding for different task categories (Chapters: Blue, Exercises: Green, etc.)
+- Prevented manual toggling of achievements (auto-unlock only)
+- Removed "L" option (list tasks) - tasks now display automatically
+- Added achievement unlock notifications with 🏆 icon
+
+### 7. Grouped Task Display by Category ⭐
+- **Complete visual reorganization of task display**
+- Tasks grouped by category with dedicated sections:
+  - 📘 CHAPTERS (Blue)
+  - 📗 EXERCISES (Green)
+  - 📙 CHALLENGES (Cyan)
+  - 📕 BOSS BATTLES (Red)
+  - 🏆 ACHIEVEMENTS (Yellow)
+- Per-category completion statistics (X/Y - XP/MaxXP)
+- Dynamic status indicators:
+  - ✓ (Green) = Category Complete
+  - ⚡ (Yellow) = In Progress
+  - ○ (Red) = Not Started
+- Locked achievement indicator (🔒) for uncompleted achievements
+- Blank lines between categories for improved readability
+- Tasks retain numbered references for toggling
+
 ## Current Architecture
 
 ### File Structure (14 Essential Files)
@@ -178,9 +202,10 @@ python claude-tutorial.py
 **Key Commands in Level Menu**:
 - `R` - Read the tutorial
 - `T` - Toggle task completion
-- `L` - List all tasks
 - `S` - Show stats
 - `B` - Back to main menu
+
+**Note**: Tasks are now displayed automatically in grouped categories - no need for a separate "list" command!
 
 ### For Developers
 
@@ -242,6 +267,56 @@ level_pattern = r"## Level X: Name - Detailed Tracking.*?(?=^## [^#]|\Z)"
 - All state stored in PROGRESS-TRACKER.md
 - File is read/written on each toggle
 - No database or external state needed
+
+### Grouped Task Display System
+
+**Category Organization**:
+```python
+categories = {
+    'Chapter': {'tasks': [], 'color': Colors.BLUE, 'icon': '📘'},
+    'Exercise': {'tasks': [], 'color': Colors.GREEN, 'icon': '📗'},
+    'Challenge': {'tasks': [], 'color': Colors.CYAN, 'icon': '📙'},
+    'Boss': {'tasks': [], 'color': Colors.RED, 'icon': '📕'},
+    'Achievement': {'tasks': [], 'color': Colors.YELLOW, 'icon': '🏆'}
+}
+```
+
+**Per-Category Statistics**:
+- Completion ratio: `completed_in_category / total_in_category`
+- XP earned: Sum of checked task XP values
+- Maximum XP: Sum of all task XP values in category
+- Display format: `(3/4 - 30/40 XP)`
+
+**Status Icons**:
+```python
+if completed_in_category == total_in_category:
+    status_icon = "✓"  # Complete (Green)
+elif completed_in_category > 0:
+    status_icon = "⚡"  # In Progress (Yellow)
+else:
+    status_icon = "○"  # Not Started (Red)
+```
+
+**Achievement Locking**:
+- Locked achievements show 🔒 icon
+- Prevents manual toggling
+- Auto-unlocks when criteria met
+- Visual indicator helps users understand achievements are earned, not checked
+
+**Display Example**:
+```
+📘 CHAPTERS ✓ (7/7 - 35/35 XP) Complete
+  [✓] 1. Chapter 1: What is Claude Code? (5 XP)
+  [✓] 2. Chapter 2: Installation Verification (5 XP)
+
+📗 EXERCISES ⚡ (3/4 - 30/40 XP) In Progress
+  [✓] 8. Exercise 1.1: Installation Check (10 XP)
+  [ ] 9. Exercise 1.2: First Conversation (10 XP)
+
+🏆 ACHIEVEMENTS 🔒 (2/5 - 10/25 XP) In Progress
+  [✓] 15. Flag Bearer (5 XP)
+  [ ] 17. Danger Zone Awareness (5 XP) 🔒
+```
 
 ### XP Calculation Logic
 
